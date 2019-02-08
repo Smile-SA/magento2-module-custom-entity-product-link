@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Smile Custom Entity Product Link module to newer
+ * versions in the future.
+ *
+ *
+ * @category  Smile
+ * @package   Smile\CustomEntityProductLink
+ * @author    Aurelien FOUCRET <aurelien.foucret@smile.fr>
+ * @copyright 2019 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Default implementation for API interfaces -->
+    <preference for="Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface" type="Smile\CustomEntityProductLink\Model\CustomEntityProductLinkManagement" />
+
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Magento\Catalog\Api\Data\ProductInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="customEntityReader" xsi:type="string">Smile\CustomEntityProductLink\Model\Product\CustomEntity\ReadHandler</item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="customEntityCreator" xsi:type="string">Smile\CustomEntityProductLink\Model\Product\CustomEntity\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="customEntityUpdater" xsi:type="string">Smile\CustomEntityProductLink\Model\Product\CustomEntity\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>
