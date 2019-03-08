@@ -18,6 +18,7 @@
     <module name="Smile_CustomEntityProductLink" setup_version="1.0.0">
         <sequence>
             <module name="Smile_CustomEntity" />
+            <module name="Smile_ElasticsuiteSwatches" />
         </sequence>
     </module>
 </config>
