@@ -37,4 +37,14 @@
         </arguments>
     </type>
 
+    <type name="Smile\CustomEntityProductLink\Model\Product\Indexer\Fulltext\Datasource\CustomEntity">
+        <arguments>
+            <argument name="attributeHelper" xsi:type="object">Smile\ElasticsuiteCatalog\Helper\ProductAttribute</argument>
+            <argument name="resourceModel" xsi:type="object">Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\CustomEntity</argument>
+        </arguments>
+    </type>
+
+    <type name="Smile\ElasticsuiteCatalog\Helper\AbstractAttribute">
+        <plugin name="Smile\CustomEntityProductLink\Plugin\Helper\AbstractAttributePlugin" type="Smile\CustomEntityProductLink\Plugin\Helper\AbstractAttributePlugin" sortOrder="10" />
+    </type>
 </config>

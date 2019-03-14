@@ -44,6 +44,7 @@ class InstallSchema implements InstallSchemaInterface
 
     /**
      * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
@@ -91,6 +92,10 @@ class InstallSchema implements InstallSchemaInterface
                 null,
                 ['unsigned' => true, 'nullable' => false, 'primary' => true],
                 'Entity ID'
+            )
+            ->addIndex(
+                $setup->getIdxName('catalog_product_custom_entity_link', 'product_id'),
+                'product_id'
             )
             ->addForeignKey(
                 $setup->getFkName('catalog_product_custom_entity_link', 'attribute_id', 'eav_attribute', 'attribute_id'),

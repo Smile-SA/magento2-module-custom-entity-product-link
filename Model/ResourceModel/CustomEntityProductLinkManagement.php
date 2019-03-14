@@ -35,6 +35,7 @@ class CustomEntityProductLinkManagement extends AbstractDb
      */
     public function _construct()
     {
+        return;
     }
 
     /**
@@ -72,7 +73,6 @@ class CustomEntityProductLinkManagement extends AbstractDb
         ];
 
         $this->getConnection()->delete($table, implode(' AND ', $deleteWhereConditions));
-
 
         $insertData = [];
 

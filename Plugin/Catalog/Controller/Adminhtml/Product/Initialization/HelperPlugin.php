@@ -46,7 +46,9 @@ class HelperPlugin
      * @param array                                                               $productData Post product data.
      *
      * @return array
+     * @SuppressWarnings(PHPMD.UnusedFormalParameters)
      */
+    // @codingStandardsIgnoreLine
     public function beforeInitializeFromData(
         \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper $helper,
         \Magento\Catalog\Model\Product $product,
