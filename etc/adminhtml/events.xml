@@ -10,6 +10,7 @@
  * @category  Smile
  * @package   Smile\CustomEntityProductLink
  * @author    Aurelien FOUCRET <aurelien.foucret@smile.fr>
+ * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
  * @copyright 2019 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -20,5 +21,8 @@
     </event>
     <event name="product_attribute_form_build_main_tab">
         <observer name="add_custom_entity_fields_to_attribute" instance="Smile\CustomEntityProductLink\Observer\Adminhtml\AddFieldsToAttributeObserver" />
+    </event>
+    <event name="catalog_entity_attribute_save_before">
+        <observer name="custom_entity_attribue_save_before" instance="Smile\CustomEntityProductLink\Observer\Adminhtml\CustomEntityAttributeSaveBeforeObserver"/>
     </event>
 </config>

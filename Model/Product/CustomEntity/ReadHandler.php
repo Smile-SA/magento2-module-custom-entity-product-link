@@ -49,19 +49,22 @@ class ReadHandler implements ExtensionInterface
     public function execute($entity, $arguments = [])
     {
         if ($entity->getId()) {
-            $customEntities = $this->customEntityLinkManager->getCustomEntities($entity);
+            $customEntitiesByCode = $this->customEntityLinkManager->getCustomEntities($entity);
             $attributeValues = [];
+            $productCustomEntities = [];
 
-            foreach ($customEntities as $attributeCode => $customEntities) {
+            foreach ($customEntitiesByCode as $attributeCode => $customEntities) {
                 foreach ($customEntities as $customEntity) {
-                    $attributeValues[$attributeCode][] = $customEntity->getId();
+                    $customEntity->setProductAttributeCode($attributeCode);
+                    $attributeValues[$attributeCode][] = $customEntity;
+                    $productCustomEntities[] = $customEntity;
                 }
             }
 
             $entity->addData($attributeValues);
 
             $entityExtension = $entity->getExtensionAttributes();
-            $entityExtension->setCustomEntities($customEntities);
+            $entityExtension->setCustomEntities($productCustomEntities);
             $entity->setExtensionAttributes($entityExtension);
         }
 

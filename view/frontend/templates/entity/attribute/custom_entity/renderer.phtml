@@ -1,0 +1,26 @@
+<?php
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\CustomEntity
+ * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
+ * @copyright 2019 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ * Attribute frontend renderer
+ */
+/** @var \Smile\CustomEntityProductLink\Block\Entity\Attribute\CustomEntity\Renderer $block */
+$customEntity = $block->getCustomEntity();
+?>
+
+<a href="<?= $customEntity->getUrlPath(); ?>">
+    <?php if ($customEntity->getImage()): ?>
+    <img src="<?= $customEntity->getImageUrl('image') ?>" alt="<?= $customEntity->getName(); ?>" width="50" height="50" />
+    <?php else : ?>
+    <?= $customEntity->getName(); ?>
+    <?php endif;?>
+</a>
