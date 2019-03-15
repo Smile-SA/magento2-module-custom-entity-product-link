@@ -64,14 +64,35 @@ class CustomEntity extends AbstractFrontend
      */
     public function getValue(\Magento\Framework\DataObject $object)
     {
-        $value = [];
-        $customEntities = parent::getValue($object);
         /** @var ProductInterface $object */
+        $value = [];
+        $customEntities = $this->getCustomEntities($object);
         foreach ($customEntities as $entity) {
             $value[] = $this->getRenderer($entity)->toHtml();
         }
 
-        return implode(', ', $value);
+        return implode(' ', $value);
+    }
+
+
+    /**
+     * Return custom entities for current attribute.
+     *
+     * @param ProductInterface $product Product.
+     *
+     * @return array
+     */
+    private function getCustomEntities(ProductInterface $product)
+    {
+        $customEntities = [];
+        foreach ($product->getExtensionAttributes()->getCustomEntities() as $customEntity) {
+            if ($customEntity->getProductAttributeCode() !== $this->getAttribute()->getAttributeCode()) {
+                continue;
+            }
+            $customEntities[] = $customEntity;
+        }
+
+        return $customEntities;
     }
 
     /**
