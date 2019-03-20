@@ -74,7 +74,6 @@ class CustomEntity extends AbstractFrontend
         return implode(' ', $value);
     }
 
-
     /**
      * Return custom entities for current attribute.
      *

@@ -42,4 +42,3 @@ class CustomEntityAttributeSaveBeforeObserver implements ObserverInterface
         }
     }
 }
-

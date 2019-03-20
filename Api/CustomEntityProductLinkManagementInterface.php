@@ -38,6 +38,16 @@ interface CustomEntityProductLinkManagementInterface
     public function getCustomEntities(ProductInterface $product);
 
     /**
+     * Return custom entities assigned to all product ids.
+     *
+     * @param array $productIds     Product ids.
+     * @param array $attributeCodes Attribute codes filter.
+     *
+     * @return mixed
+     */
+    public function getCustomEntitiesByProductIds(array $productIds, array $attributeCodes = []);
+
+    /**
      * Persists custom entities product links.
      *
      * @param ProductInterface $product Product.
