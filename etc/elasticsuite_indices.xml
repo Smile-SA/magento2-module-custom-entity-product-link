@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Smile_ElasticsuiteCatalog indices configuration.
- *
+/**
  * DISCLAIMER
  *
- * Do not edit or add to this file if you wish to upgrade Smile ElasticSuite to newer
+ * Do not edit or add to this file if you wish to upgrade Smile Custom Entity Product Link module to newer
  * versions in the future.
  *
  *
  * @category  Smile
- * @package   Smile\ElasticsuiteCatalog
- * @author    Aurelien FOUCRET <aurelien.foucret@smile.fr>
- * @copyright 2018 Smile
+ * @package   Smile\CustomEntityProductLink
+ * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
+ * @copyright 2019 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
  -->
