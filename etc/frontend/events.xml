@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Smile Custom Entity Product Link module to newer
+ * versions in the future.
+ *
+ *
+ * @category  Smile
+ * @package   Smile\CustomEntityProductLink
+ * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
+ * @copyright 2019 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_collection_load_after">
+        <observer name="add_custom_entities_information" instance="Smile\CustomEntityProductLink\Observer\Catalog\Product\AddCustomEntitiesInformation" />
+    </event>
+</config>

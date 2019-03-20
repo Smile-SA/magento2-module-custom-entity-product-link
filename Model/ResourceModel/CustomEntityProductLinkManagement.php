@@ -45,11 +45,27 @@ class CustomEntityProductLinkManagement extends AbstractDb
      *
      * @return array
      */
-    public function loadCustomEntityData($productId)
+    public function loadCustomEntityData(int $productId)
+    {
+        return $this->loadCustomEntityDataByProductIds([$productId]);
+    }
+
+    /**
+     * Get custom entity data from product ids. Return an associative array with at first level product id.
+     *
+     * @param array $productIds    Product Ids
+     * @param array $attibuteCodes Attribute codes filter.
+     *
+     * @return array
+     */
+    public function loadCustomEntityDataByProductIds(array $productIds, array $attibuteCodes = [])
     {
         $select = $this->getConnection()->select()->from(['e' => $this->getTable(self::RELATION_TABLE_NAME)])
             ->join(['a' => $this->getTable('eav_attribute')], 'e.attribute_id = a.attribute_id', ['attribute_code'])
-            ->where('product_id = ?', $productId);
+            ->where('product_id in (?)', $productIds);
+        if (!empty($attibuteCodes)) {
+            $select->where('attribute_code in (?)', $attibuteCodes);
+        }
 
         return $this->getConnection()->fetchAll($select);
     }

@@ -56,7 +56,7 @@ class ReadHandler implements ExtensionInterface
             foreach ($customEntitiesByCode as $attributeCode => $customEntities) {
                 foreach ($customEntities as $customEntity) {
                     $customEntity->setProductAttributeCode($attributeCode);
-                    $attributeValues[$attributeCode][] = $customEntity;
+                    $attributeValues[$attributeCode][] = $customEntity->getId();
                     $productCustomEntities[] = $customEntity;
                 }
             }
