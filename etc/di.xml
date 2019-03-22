@@ -47,4 +47,12 @@
     <type name="Smile\ElasticsuiteCatalog\Helper\AbstractAttribute">
         <plugin name="Smile\CustomEntityProductLink\Plugin\Helper\AbstractAttributePlugin" type="Smile\CustomEntityProductLink\Plugin\Helper\AbstractAttributePlugin" sortOrder="10" />
     </type>
+
+    <type name="Magento\Catalog\Model\Layer\Resolver">
+        <arguments>
+            <argument name="layersPool" xsi:type="array">
+                <item name="smile_custom_entity" xsi:type="string">Smile\CustomEntityProductLink\Model\Layer\CustomEntity</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

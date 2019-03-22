@@ -20,6 +20,7 @@ use Smile\ElasticsuiteCatalog\Helper\AbstractAttribute as AttributeHelper;
 use Smile\ElasticsuiteCore\Api\Index\Mapping\DynamicFieldProviderInterface;
 use Smile\ElasticsuiteCore\Api\Index\Mapping\FieldInterface;
 use Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\CustomEntity as ResourceModel;
+use Smile\ElasticsuiteCore\Helper\Mapping as MappingHelper;
 use Smile\ElasticsuiteCore\Index\Mapping\FieldFactory;
 
 /**
@@ -49,7 +50,7 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     /**
      * @var \Smile\ElasticsuiteCore\Api\Index\Mapping\FieldInterface[]
      */
-    private $fields;
+    private $fields = [];
 
     /**
      * @var FieldFactory
@@ -57,20 +58,28 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     private $fieldFactory;
 
     /**
+     * @var MappingHelper
+     */
+    private $mappingHelper;
+
+    /**
      * CustomEntity constructor.
      *
      * @param ResourceModel   $resourceModel   Resource model
      * @param FieldFactory    $fieldFactory    Field factory.
      * @param AttributeHelper $attributeHelper Attribute helper.
+     * @param MappingHelper   $mappingHelper   Mapping helper.
      */
     public function __construct(
         ResourceModel $resourceModel,
         FieldFactory $fieldFactory,
-        AttributeHelper $attributeHelper
+        AttributeHelper $attributeHelper,
+        MappingHelper $mappingHelper
     ) {
         $this->resourceModel = $resourceModel;
         $this->fieldFactory = $fieldFactory;
         $this->attributeHelper = $attributeHelper;
+        $this->mappingHelper = $mappingHelper;
         $this->initAttributes();
     }
 
@@ -93,13 +102,12 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
 
             $attribute = $this->attributeById[$customEntityData['attribute_id']];
             $indexData[$productId][$attribute->getAttributeCode()][] = $customEntityData['entity_id'];
-            // @todo Use helper for option text name.
-            $indexData[$productId]['option_text_'.$attribute->getAttributeCode()][] = $customEntityData['name'];
+            $optionAttributeCode = $this->mappingHelper->getOptionTextFieldName($attribute->getAttributeCode());
+            $indexData[$productId][$optionAttributeCode][] = $customEntityData['name'];
 
             if (!isset($indexData[$productId]['indexed_attributes'])) {
                 $indexData[$productId]['indexed_attributes'] = [$attribute->getAttributeCode()];
             } elseif (!in_array($attribute->getAttributeCode(), $indexData[$productId]['indexed_attributes'])) {
-                // Add price only one time.
                 $indexData[$productId]['indexed_attributes'][] = $attribute->getAttributeCode();
             }
         }
