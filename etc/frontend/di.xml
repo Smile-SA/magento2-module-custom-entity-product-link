@@ -22,4 +22,43 @@
             </argument>
         </arguments>
     </type>
+
+    <virtualType name="Smile\CustomEntityProductLink\Block\CustomEntity\ProductListProduct" type="Magento\Catalog\Block\Product\ListProduct\Interceptor">
+        <arguments>
+            <argument name="catalogLayer" xsi:type="object">Magento\Catalog\Model\Layer\Search</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Smile\CustomEntityProductLink\Model\Layer\Context" type="Magento\Catalog\Model\Layer\Context">
+        <arguments>
+            <argument name="collectionProvider" xsi:type="object">Smile\ElasticsuiteCatalog\Model\Layer\Category\ItemCollectionProvider</argument>
+            <argument name="stateKey" xsi:type="object">Magento\Catalog\Model\Layer\Category\StateKey</argument>
+            <argument name="collectionFilter" xsi:type="object">Smile\CustomEntityProductLink\Model\Layer\CustomEntity\CollectionFilter</argument>
+        </arguments>
+    </virtualType>
+    <type name="Smile\CustomEntityProductLink\Model\Layer\CustomEntity">
+        <arguments>
+            <argument name="context" xsi:type="object">Smile\CustomEntityProductLink\Model\Layer\Context</argument>
+        </arguments>
+    </type>
+    <type name="Smile\CustomEntity\Controller\Entity\View">
+        <plugin name="smile-custom-entity-view-product-link" type="Smile\CustomEntityProductLink\Plugin\Controller\Entity\ViewPlugin" />
+    </type>
+
+    <virtualType name="customEntityFilterList" type="Smile\ElasticsuiteCatalog\Model\Layer\FilterList">
+        <arguments>
+            <argument name="filterableAttributes" xsi:type="object">Smile\ElasticsuiteCatalog\Model\Layer\Category\FilterableAttributeList</argument>
+            <argument name="filters" xsi:type="array">
+                <item name="attribute" xsi:type="string">Smile\ElasticsuiteCatalog\Model\Layer\Filter\Attribute</item>
+                <item name="price" xsi:type="string">Smile\ElasticsuiteCatalog\Model\Layer\Filter\Price</item>
+                <item name="decimal" xsi:type="string">Smile\ElasticsuiteCatalog\Model\Layer\Filter\Decimal</item>
+                <item name="category" xsi:type="string">Smile\ElasticsuiteCatalog\Model\Layer\Filter\Category</item>
+                <item name="boolean" xsi:type="string">Smile\ElasticsuiteCatalog\Model\Layer\Filter\Boolean</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Smile\CustomEntityProductLink\Block\Navigation\CustomEntity" type="Smile\ElasticsuiteCatalog\Block\Navigation">
+        <arguments>
+            <argument name="filterList" xsi:type="object">customEntityFilterList</argument>
+        </arguments>
+    </virtualType>
 </config>

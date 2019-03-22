@@ -91,8 +91,7 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
     public function getCustomEntitiesByProductIds(array $productIds, array $attributeCodes = [])
     {
         $linksData = $this->resourceModel->loadCustomEntityDataByProductIds($productIds, $attributeCodes);
-        $customEntityIds = array_map(function(array $linkData) {
-
+        $customEntityIds = array_map(function (array $linkData) {
             return $linkData['custom_entity_id'];
         }, $linksData);
         /** @var SearchCriteriaBuilder $searchCriteriaBuilder */
