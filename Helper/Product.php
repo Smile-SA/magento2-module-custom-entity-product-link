@@ -86,8 +86,7 @@ class Product extends AbstractHelper
         if (!array_key_exists($customEntity->getId(), $this->filterableAttributeCodes)) {
             $this->filterableAttributeCodes[$customEntity->getId()] = '';
             foreach ($this->filterableAttributeList->getList() as $attribute) {
-                if (
-                    $attribute->getFrontendInput() == 'smile_custom_entity' &&
+                if ($attribute->getFrontendInput() == 'smile_custom_entity' &&
                     $attribute->getCustomEntityAttributeSetId() == $customEntity->getAttributeSetId()
                 ) {
                     $this->filterableAttributeCodes[$customEntity->getId()] = $attribute->getAttributeCode();
