@@ -15,6 +15,7 @@ namespace Smile\CustomEntityProductLink\Observer\Adminhtml;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
+use Magento\Framework\Registry;
 use Smile\CustomEntity\Model\CustomEntity\AttributeSet;
 use Magento\Framework\Module\Manager;
 
@@ -38,15 +39,25 @@ class AddFieldsToAttributeObserver implements ObserverInterface
     private $attributeSetOptions;
 
     /**
+     * @var Registry
+     */
+    private $registry;
+
+    /**
      * Constructor.
      *
      * @param Manager              $moduleManager       Module manager.
      * @param AttributeSet\Options $attributeSetOptions Attribute set options.
+     * @param Registry             $registry            Registry
      */
-    public function __construct(Manager $moduleManager, AttributeSet\Options $attributeSetOptions)
-    {
+    public function __construct(
+        Manager $moduleManager,
+        AttributeSet\Options $attributeSetOptions,
+        Registry $registry
+    ) {
         $this->moduleManager = $moduleManager;
         $this->attributeSetOptions = $attributeSetOptions;
+        $this->registry = $registry;
     }
 
     /**
@@ -75,5 +86,16 @@ class AddFieldsToAttributeObserver implements ObserverInterface
                 'values' => $this->attributeSetOptions->toOptionArray(),
             ]
         );
+        if ($this->getAttributeObject() && $this->getAttributeObject()->getAttributeId()) {
+            $form->getElement('custom_entity_attribute_set_id')->setDisabled(1);
+        }
+    }
+
+    /**
+     * @return \Magento\Eav\Api\Data\AttributeInterface|null
+     */
+    private function getAttributeObject()
+    {
+        return $this->registry->registry('entity_attribute');
     }
 }
