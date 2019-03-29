@@ -25,4 +25,7 @@
     <event name="catalog_entity_attribute_save_before">
         <observer name="custom_entity_attribue_save_before" instance="Smile\CustomEntityProductLink\Observer\Adminhtml\CustomEntityAttributeSaveBeforeObserver"/>
     </event>
+    <event name="adminhtml_catalog_product_form_prepare_excluded_field_list">
+        <observer name="custom_entity_excluded_attribute" instance="Smile\CustomEntityProductLink\Observer\Adminhtml\CatalogProductFormExcludedAttributesObserver"/>
+</event>
 </config>
