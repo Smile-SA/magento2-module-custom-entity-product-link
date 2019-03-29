@@ -65,7 +65,7 @@ class Product extends AbstractHelper
         $result = [];
         $customEntities = $product->getExtensionAttributes()->getCustomEntities() ?? [];
         foreach ($customEntities as $customEntity) {
-            if ($customEntity->getProductAttributeCode() !== $attributeCode) {
+            if ($customEntity->getProductAttributeCode() !== $attributeCode || !$customEntity->getIsActive()) {
                 continue;
             }
             $result[] = $customEntity;

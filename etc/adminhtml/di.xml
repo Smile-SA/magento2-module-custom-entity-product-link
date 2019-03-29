@@ -19,9 +19,12 @@
     <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav">
         <plugin name="setupCustomEntity" type="Smile\CustomEntityProductLink\Plugin\Catalog\Ui\DataProvider\Product\Form\Modifier\EavPlugin" />
     </type>
-   
+
     <type name="Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper">
         <plugin name="defaultCustomEntity" type="Smile\CustomEntityProductLink\Plugin\Catalog\Controller\Adminhtml\Product\Initialization\HelperPlugin" />
     </type>
-    
+
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="cacheClean" type="Smile\CustomEntityProductLink\Plugin\Model\ProductPlugin" sortOrder="10" />
+    </type>
 </config>

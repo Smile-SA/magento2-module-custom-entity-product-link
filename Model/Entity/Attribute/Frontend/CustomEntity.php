@@ -20,6 +20,7 @@ use Magento\Framework\App\CacheInterface;
 use Magento\Framework\Serialize\Serializer\Json as Serializer;
 use Magento\Store\Model\StoreManagerInterface;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
+use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
 
 /**
  * Custom entity frontend model attribute.
@@ -36,9 +37,15 @@ class CustomEntity extends AbstractFrontend
     private $renderers;
 
     /**
+     * @var ProductHelper
+     */
+    private $productHelper;
+
+    /**
      * CustomEntity constructor.
      *
      * @param BooleanFactory             $attrBooleanFactory Attribute boolean factory.
+     * @param ProductHelper              $productHelper      Product helper.
      * @param array                      $renderers          Renderers.
      * @param CacheInterface|null        $cache              Cache.
      * @param null                       $storeResolver      Store resolver.
@@ -48,6 +55,7 @@ class CustomEntity extends AbstractFrontend
      */
     public function __construct(
         BooleanFactory $attrBooleanFactory,
+        ProductHelper $productHelper,
         array $renderers = [],
         CacheInterface $cache = null,
         $storeResolver = null,
@@ -57,6 +65,7 @@ class CustomEntity extends AbstractFrontend
     ) {
         parent::__construct($attrBooleanFactory, $cache, $storeResolver, $cacheTags, $storeManager, $serializer);
         $this->renderers = $renderers;
+        $this->productHelper = $productHelper;
     }
 
     /**
@@ -66,32 +75,12 @@ class CustomEntity extends AbstractFrontend
     {
         /** @var ProductInterface $object */
         $value = [];
-        $customEntities = $this->getCustomEntities($object);
+        $customEntities = $this->productHelper->getCustomEntities($object, $this->getAttribute()->getAttributeCode());
         foreach ($customEntities as $entity) {
             $value[] = $this->getRenderer($entity)->toHtml();
         }
 
         return implode(' ', $value);
-    }
-
-    /**
-     * Return custom entities for current attribute.
-     *
-     * @param ProductInterface $product Product.
-     *
-     * @return array
-     */
-    private function getCustomEntities(ProductInterface $product)
-    {
-        $customEntities = [];
-        foreach ($product->getExtensionAttributes()->getCustomEntities() as $customEntity) {
-            if ($customEntity->getProductAttributeCode() !== $this->getAttribute()->getAttributeCode()) {
-                continue;
-            }
-            $customEntities[] = $customEntity;
-        }
-
-        return $customEntities;
     }
 
     /**

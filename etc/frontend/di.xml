@@ -61,4 +61,10 @@
             <argument name="filterList" xsi:type="object">customEntityFilterList</argument>
         </arguments>
     </virtualType>
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="Smile\CustomEntityProductLink\Plugin\Block\Product\View" type="Smile\CustomEntityProductLink\Plugin\Block\Product\ViewPlugin" sortOrder="10" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Smile\CustomEntityProductLink\Plugin\Block\Product\ListProduct" type="Smile\CustomEntityProductLink\Plugin\Block\Product\ListProductPlugin" sortOrder="10" />
+    </type>
 </config>
