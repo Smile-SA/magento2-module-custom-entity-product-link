@@ -105,7 +105,7 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
         $customEntitiesByCode = [];
         foreach ($linksData as $linkData) {
             $customEntity = $customEntities->getItems()[$linkData['custom_entity_id']] ?? null;
-            if (null == $customEntities) {
+            if (null === $customEntity) {
                 continue;
             }
             $customEntitiesByCode[$linkData['product_id']][$linkData['attribute_code']][] = $customEntity;
