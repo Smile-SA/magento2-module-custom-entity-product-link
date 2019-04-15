@@ -26,7 +26,7 @@
             <mapping>
                 <!-- Static fields handled by the "custom_entity" datasource -->
                 <field name="custom_entity.entity_id" type="integer" nestedPath="custom_entity" />
-                <field name="custom_entity.name" type="string" nestedPath="custom_entity" />
+                <field name="custom_entity.name" type="text" nestedPath="custom_entity" />
             </mapping>
         </type>
     </index>
