@@ -19,6 +19,8 @@ use Magento\Framework\Registry;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
 use Smile\ElasticsuiteCore\Helper\Mapping;
+use Smile\ElasticsuiteCore\Search\Request\Query\QueryFactory;
+use Smile\ElasticsuiteCore\Search\Request\QueryInterface;
 
 /**
  * Custom entity view layer collection filter model.
@@ -40,9 +42,9 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
     private $productHelper;
 
     /**
-     * @var Mapping
+     * @var \Smile\ElasticsuiteCore\Search\Request\Query\QueryFactory
      */
-    private $mappingHelper;
+    private $queryFactory;
 
     /**
      * CollectionFilter constructor.
@@ -58,12 +60,12 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
         \Magento\Catalog\Model\Config $catalogConfig,
         ProductHelper $productHelper,
         Registry $registry,
-        Mapping $mappingHelper
+        QueryFactory $queryFactory
     ) {
         parent::__construct($productVisibility, $catalogConfig);
         $this->productHelper = $productHelper;
         $this->registry = $registry;
-        $this->mappingHelper = $mappingHelper;
+        $this->queryFactory  = $queryFactory;
     }
 
     /**
@@ -79,10 +81,12 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
         parent::filter($collection, $category);
         $currentCustomEntity = $this->getCurrentCustomEntity();
         if (null !== $currentCustomEntity && $currentCustomEntity->getId() && $this->getAttributeCode()) {
-            $collection->addFieldToFilter(
-                $this->mappingHelper->getOptionTextFieldName($this->getAttributeCode()),
-                [$currentCustomEntity->getName()]
+            $query = $this->queryFactory->create(
+                QueryInterface::TYPE_TERM,
+                ['field' => $this->getAttributeCode(), 'value' => $currentCustomEntity->getId()]
             );
+
+            $collection->addQueryFilter($query);
         }
     }
 
