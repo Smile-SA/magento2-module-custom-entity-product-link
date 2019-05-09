@@ -19,6 +19,17 @@
     <!-- Default implementation for API interfaces -->
     <preference for="Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface" type="Smile\CustomEntityProductLink\Model\CustomEntityProductLinkManagement" />
 
+    <!-- Datasources resolver -->
+    <type name="Smile\ElasticsuiteCore\Index\DataSourceResolver">
+        <arguments>
+            <argument name="datasources" xsi:type="array">
+                <item name="catalog_product" xsi:type="array">
+                    <item name="custom_entity" xsi:type="object">Smile\CustomEntityProductLink\Model\Product\Indexer\Fulltext\Datasource\CustomEntity</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
         <arguments>
             <argument name="extensionActions" xsi:type="array">

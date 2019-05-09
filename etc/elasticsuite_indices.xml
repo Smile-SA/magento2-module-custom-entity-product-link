@@ -20,9 +20,6 @@
 
     <index identifier="catalog_product" defaultSearchType="product">
         <type name="product" idFieldName="entity_id">
-            <datasources>
-                <datasource name="custom_entity">Smile\CustomEntityProductLink\Model\Product\Indexer\Fulltext\Datasource\CustomEntity</datasource>
-            </datasources>
             <mapping>
                 <!-- Static fields handled by the "custom_entity" datasource -->
                 <field name="custom_entity.entity_id" type="integer" nestedPath="custom_entity" />
