@@ -12,7 +12,7 @@
     "require": {
         "php": "~7.1.3||~7.2.0",
         "smile/module-custom-entity": "~1.0.0",
-        "smile/elasticsuite": "^2.6.0"
+        "smile/elasticsuite": "~2.8.0"
     },
     "require-dev": {
         "smile/magento2-smilelab-quality-suite": "^1.0.5",
