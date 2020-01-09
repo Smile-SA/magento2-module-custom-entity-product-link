@@ -8,7 +8,7 @@
  * @copyright 2019 Smile
  */
 
-namespace Smile\CustomEntityProductLink\Model\ResourceModel\Search;
+namespace Smile\CustomEntityProductLink\Rewrite\Model\ResourceModel\Search;
 
 use Magento\CatalogSearch\Model\ResourceModel\Search\Collection ;
 
