@@ -27,4 +27,6 @@
     <type name="Magento\Catalog\Model\Product">
         <plugin name="cacheClean" type="Smile\CustomEntityProductLink\Plugin\Model\ProductPlugin" sortOrder="10" />
     </type>
+
+    <preference for="Magento\CatalogSearch\Model\ResourceModel\Search\Collection" type="Smile\CustomEntityProductLink\Model\ResourceModel\Search\CustomCollection" />
 </config>
