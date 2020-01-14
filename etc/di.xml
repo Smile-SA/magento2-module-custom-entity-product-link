@@ -66,4 +66,11 @@
             </argument>
         </arguments>
     </type>
+
+    <preference for="Magento\Search\Model\SearchCollectionInterface" type="Smile\CustomEntityProductLink\Model\ResourceModel\Search\CustomCollection" />
+    <type name="Magento\CatalogSearch\Ui\DataProvider\Product\AddFulltextFilterToCollection">
+        <arguments>
+            <argument name="searchCollection" xsi:type="object">Smile\CustomEntityProductLink\Model\ResourceModel\Search\CustomCollection</argument>
+        </arguments>
+    </type>
 </config>

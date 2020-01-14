@@ -19,6 +19,7 @@
         <sequence>
             <module name="Smile_CustomEntity" />
             <module name="Smile_ElasticsuiteSwatches" />
+            <module name="Magento_CatalogSearch" />
         </sequence>
     </module>
 </config>
