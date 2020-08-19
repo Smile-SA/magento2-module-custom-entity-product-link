@@ -11,7 +11,7 @@
     ],
     "require": {
         "smile/module-custom-entity": "~1.1.0",
-        "smile/elasticsuite": "~2.8.0"
+        "smile/elasticsuite": "^2.8.0"
     },
     "require-dev": {
         "smile/magento2-smilelab-quality-suite": "^1.0.5",
