@@ -59,7 +59,9 @@ class CustomCollection extends Collection
         $sql = parent::_getSearchEntityIdsSql($query, $searchOnlyInCurrentStore);
 
         $selects = $this->_getSmileCustomSql($query);
-        $sql = $sql->union($selects, \Magento\Framework\DB\Select::SQL_UNION_ALL);
+        if (!empty($selects)) { 
+            $sql = $sql->union($selects, \Magento\Framework\DB\Select::SQL_UNION_ALL);
+        }
 
         return $sql;
     }
@@ -86,6 +88,7 @@ class CustomCollection extends Collection
             $smileCustomEntityAttributeIds[] = $attribute->getId();
         }
 
+        $selects = [];
         if ($smileCustomEntityAttributeIds) {
             $selects[] = $this->getConnection()->select()->from(
                 ['cpe' => 'catalog_product_entity'],
