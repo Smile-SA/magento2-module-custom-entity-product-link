@@ -14,12 +14,12 @@
 
 namespace Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource;
 
+use Laminas\Db\Sql\ExpressionFactory;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Store\Model\StoreManagerInterface;
 use Smile\CustomEntity\Model\ResourceModel\CustomEntity\Attribute\CollectionFactory;
 use Smile\ElasticsuiteCatalog\Model\ResourceModel\Eav\Indexer\Fulltext\Datasource\AbstractAttributeData;
-use Zend\Db\Sql\ExpressionFactory;
 
 /**
  * Custom entity datasource resource model.
