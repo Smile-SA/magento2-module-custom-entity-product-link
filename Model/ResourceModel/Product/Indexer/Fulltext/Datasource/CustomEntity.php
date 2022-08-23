@@ -1,16 +1,6 @@
 <?php
-/**
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\CustomEntityProductLink
- * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
- * @copyright 2019 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource;
 
@@ -23,10 +13,6 @@ use Zend\Db\Sql\ExpressionFactory;
 
 /**
  * Custom entity datasource resource model.
- *
- * @category Smile
- * @package  Smile\CustomEntityProductLink
- * @author   Maxime LECLERCQ <maxime.leclercq@smile.fr>
  */
 class CustomEntity extends AbstractAttributeData
 {

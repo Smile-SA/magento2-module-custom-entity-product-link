@@ -1,16 +1,6 @@
 <?php
-/**
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\CustomEntityProductLink
- * @author    Aurelien FOUCRET <aurelien.foucret@smile.fr>
- * @copyright 2019 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model\Product\CustomEntity;
 
@@ -19,10 +9,6 @@ use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface
 
 /**
  * Custom entity product link save handler.
- *
- * @category Smile
- * @package  Smile\CustomEntityProductLink
- * @author   Aurelien FOUCRET <aurelien.foucret@smile.fr>
  */
 class SaveHandler implements ExtensionInterface
 {

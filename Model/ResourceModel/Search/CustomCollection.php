@@ -1,12 +1,6 @@
 <?php
-/**
- * Admin Catalog Custom Collection
- *
- * @category  Smile
- * @package   Smile\CustomEntityProductLink
- * @author    Maxime CORTYL <maxime.cortyl@smile.fr>
- * @copyright 2019 Smile
- */
+
+declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model\ResourceModel\Search;
 
@@ -14,10 +8,6 @@ use Magento\CatalogSearch\Model\ResourceModel\Search\Collection;
 
 /**
  * Extends Magento CatalogSearch Collection
- *
- * @category Smile
- * @package  Smile\CustomEntityProductLink
- * @author   Maxime CORTYL <maxime.cortyl@smile.fr>
  */
 class CustomCollection extends Collection
 {

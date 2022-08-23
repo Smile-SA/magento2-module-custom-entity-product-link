@@ -1,16 +1,7 @@
 <?php
-/**
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\CustomEntityProductLink
- * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
- * @copyright 2019 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
+
 namespace Smile\CustomEntityProductLink\Observer\Adminhtml;
 
 use Magento\Catalog\Block\Adminhtml\Product\Edit\Action\Attribute\Tab\Attributes;
@@ -19,10 +10,6 @@ use Magento\Framework\Event\ObserverInterface;
 
 /**
  * Excluded smile custom entity attributes to form mass edit.
- *
- * @category Smile
- * @package  Smile\CustomEntityProductLink
- * @author   Maxime LECLERCQ <maxime.leclercq@smile.fr>
  */
 class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
 {
