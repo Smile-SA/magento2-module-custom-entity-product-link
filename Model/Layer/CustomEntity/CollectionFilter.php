@@ -1,16 +1,7 @@
 <?php
-/**
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\CustomEntityProductLink
- * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
- * @copyright 2019 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
+
 namespace Smile\CustomEntityProductLink\Model\Layer\CustomEntity;
 
 use Magento\Catalog\Model\Layer\Category\CollectionFilter as BaseCollectionFilter;
@@ -24,10 +15,6 @@ use Smile\ElasticsuiteCore\Search\Request\QueryInterface;
 
 /**
  * Custom entity view layer collection filter model.
- *
- * @category Smile
- * @package  Smile\CustomEntityProductLink
- * @author   Maxime LECLERCQ <maxime.leclercq@smile.fr>
  */
 class CollectionFilter extends BaseCollectionFilter implements CollectionFilterInterface
 {

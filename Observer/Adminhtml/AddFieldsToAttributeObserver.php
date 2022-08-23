@@ -1,16 +1,7 @@
 <?php
-/**
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade this module to newer
- * versions in the future.
- *
- * @category  Smile
- * @package   Smile\CustomEntityProductLink
- * @author    Maxime LECLERCQ <maxime.leclercq@smile.fr>
- * @copyright 2019 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
+
+declare(strict_types=1);
+
 namespace Smile\CustomEntityProductLink\Observer\Adminhtml;
 
 use Magento\Framework\Event\ObserverInterface;
@@ -21,10 +12,6 @@ use Magento\Framework\Module\Manager;
 
 /**
  * Add custom_entity_attribute_set_id field into base fieldset.
- *
- * @category Smile
- * @package  Smile\CustomEntityProductLink
- * @author   Maxime LECLERCQ <maxime.leclercq@smile.fr>
  */
 class AddFieldsToAttributeObserver implements ObserverInterface
 {
