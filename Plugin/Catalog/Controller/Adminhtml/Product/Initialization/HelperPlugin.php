@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Plugin\Catalog\Controller\Adminhtml\Product\Initialization;
 
+use Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper;
+use Magento\Catalog\Model\Product;
+use Smile\CustomEntityProductLink\Helper\Data;
+
 /**
  * Plugin for the product save data initialization.
  */
 class HelperPlugin
 {
     /**
-     * @var \Smile\CustomEntityProductLink\Helper\Data
+     * @var Data
      */
     private $helper;
 
     /**
      * Constructor.
      *
-     * @param \Smile\CustomEntityProductLink\Helper\Data $helper Custom entity helper.
+     * @param Data $helper Custom entity helper.
      */
-    public function __construct(\Smile\CustomEntityProductLink\Helper\Data $helper)
+    public function __construct(Data $helper)
     {
         $this->helper = $helper;
     }
@@ -27,19 +31,19 @@ class HelperPlugin
     /**
      * Clean custom entity input of the product edit form.
      *
-     * @param \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper $helper      Original helper.
-     * @param \Magento\Catalog\Model\Product                                      $product     Product.
-     * @param array                                                               $productData Post product data.
+     * @param Helper $helper Original helper.
+     * @param Product $product Product.
+     * @param array $productData Post product data.
      *
-     * @return array
+     * @return array|null
      * @SuppressWarnings(PHPMD.UnusedFormalParameters)
      */
     // @codingStandardsIgnoreLine
     public function beforeInitializeFromData(
-        \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper $helper,
-        \Magento\Catalog\Model\Product $product,
+        Helper $helper,
+        Product $product,
         array $productData
-    ) {
+    ): ?array {
         foreach ($this->helper->getCustomEntityProductAttributes() as $attribute) {
             if (!isset($productData[$attribute->getAttributeCode()])) {
                 $productData[$attribute->getAttributeCode()] = [];

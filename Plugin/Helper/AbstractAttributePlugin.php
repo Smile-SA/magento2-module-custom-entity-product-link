@@ -15,13 +15,13 @@ class AbstractAttributePlugin
     /**
      * Returns field use for filtering for an smile_custom_entity attribute.
      *
-     * @param ProductAttribute   $source    Product attribute helper.
-     * @param string             $field     Field name.
+     * @param ProductAttribute $source Product attribute helper.
+     * @param string $field Field name.
      * @param AttributeInterface $attribute Product attribute.
      *
-     * @return string
+     * @return string|null
      */
-    public function afterGetFilterField(ProductAttribute $source, string $field, AttributeInterface $attribute)
+    public function afterGetFilterField(ProductAttribute $source, string $field, AttributeInterface $attribute): ?string
     {
         if ($attribute->getFrontendInput() == 'smile_custom_entity') {
             $field = $source->getOptionTextFieldName($field);

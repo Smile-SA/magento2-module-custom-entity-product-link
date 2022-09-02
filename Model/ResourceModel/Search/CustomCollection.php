@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model\ResourceModel\Search;
 
 use Magento\CatalogSearch\Model\ResourceModel\Search\Collection;
+use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Extends Magento CatalogSearch Collection
@@ -17,9 +19,9 @@ class CustomCollection extends Collection
      * collection. This enables the product grid search to create the correct sql request in the method
      * _getSearchEntityIdsSql
      *
-     * @return \Magento\Framework\Data\Collection\AbstractDb
+     * @return AbstractDb
      */
-    protected function _getAttributesCollection()
+    protected function _getAttributesCollection(): AbstractDb
     {
         if (!$this->_attributesCollection) {
             $this->_attributesCollection = $this->_attributeCollectionFactory
@@ -42,9 +44,9 @@ class CustomCollection extends Collection
      * @param mixed $query                    Query
      * @param bool  $searchOnlyInCurrentStore Search only in current store or in all stores
      *
-     * @return string
+     * @return string|null
      */
-    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true)
+    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true): ?string
     {
         $sql = parent::_getSearchEntityIdsSql($query, $searchOnlyInCurrentStore);
 
@@ -60,10 +62,10 @@ class CustomCollection extends Collection
      *
      * @param mixed $query Query
      *
-     * @return array
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return array|null
+     * @throws LocalizedException
      */
-    protected function _getSmileCustomSql($query)
+    protected function _getSmileCustomSql($query): ?array
     {
         $smileCustomCollection = $this->_attributeCollectionFactory
             ->create()

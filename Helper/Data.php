@@ -6,25 +6,27 @@ namespace Smile\CustomEntityProductLink\Helper;
 
 use Magento\Catalog\Model\ResourceModel\Product\Attribute\CollectionFactory as ProductAttributeCollectionFactory;
 use Magento\Catalog\Api\Data\ProductAttributeInterface;
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
 
 /**
  * Custom entity helper.
  */
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+class Data extends AbstractHelper
 {
     /**
-     * @var \Magento\Catalog\Api\Data\ProductAttributeInterface[]
+     * @var ProductAttributeInterface[]
      */
     private $customEntityProductAttributes;
 
     /**
      * Constructor.
      *
-     * @param \Magento\Framework\App\Helper\Context $context                           Context.
-     * @param ProductAttributeCollectionFactory     $productAttributeCollectionFactory Product attribute collection factory.
+     * @param Context $context Context.
+     * @param ProductAttributeCollectionFactory $productAttributeCollectionFactory Product attribute collection factory.
      */
     public function __construct(
-        \Magento\Framework\App\Helper\Context $context,
+        Context $context,
         ProductAttributeCollectionFactory $productAttributeCollectionFactory
     ) {
         parent::__construct($context);
@@ -34,9 +36,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * List of product attributes using custom entities as frontend input.
      *
-     * @return \Magento\Catalog\Api\Data\ProductAttributeInterface[]
+     * @return ProductAttributeInterface[]
      */
-    public function getCustomEntityProductAttributes()
+    public function getCustomEntityProductAttributes(): array
     {
         return $this->customEntityProductAttributes;
     }
@@ -48,7 +50,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @return void
      */
-    private function initAttributes(ProductAttributeCollectionFactory $attributeCollectionFactory)
+    private function initAttributes(ProductAttributeCollectionFactory $attributeCollectionFactory): void
     {
         $attributeCollection = $attributeCollectionFactory->create();
         $attributeCollection->addFieldToFilter(ProductAttributeInterface::FRONTEND_INPUT, 'smile_custom_entity');

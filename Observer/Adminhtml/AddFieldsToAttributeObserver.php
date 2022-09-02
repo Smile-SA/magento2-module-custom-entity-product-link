@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Observer\Adminhtml;
 
+use Magento\Eav\Api\Data\AttributeInterface;
+use Magento\Framework\Data\Form;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Registry;
@@ -33,9 +35,9 @@ class AddFieldsToAttributeObserver implements ObserverInterface
     /**
      * Constructor.
      *
-     * @param Manager              $moduleManager       Module manager.
+     * @param Manager $moduleManager Module manager.
      * @param AttributeSet\Options $attributeSetOptions Attribute set options.
-     * @param Registry             $registry            Registry
+     * @param Registry $registry Registry
      */
     public function __construct(
         Manager $moduleManager,
@@ -50,17 +52,17 @@ class AddFieldsToAttributeObserver implements ObserverInterface
     /**
      * Append custom_entity_attribute_set_id field.
      *
-     * @param \Magento\Framework\Event\Observer $observer Observer
+     * @param Observer $observer Observer
      *
      * @return void
      */
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
         if (!$this->moduleManager->isOutputEnabled('Smile_CustomEntityProductLink')) {
             return;
         }
 
-        /** @var \Magento\Framework\Data\Form $form */
+        /** @var Form $form */
         $form = $observer->getForm();
         $fieldset = $form->getElement('base_fieldset');
         $fieldset->addField(
@@ -79,9 +81,11 @@ class AddFieldsToAttributeObserver implements ObserverInterface
     }
 
     /**
-     * @return \Magento\Eav\Api\Data\AttributeInterface|null
+     * Get attribute object.
+     *
+     * @return AttributeInterface|null
      */
-    private function getAttributeObject()
+    private function getAttributeObject(): ?AttributeInterface
     {
         return $this->registry->registry('entity_attribute');
     }

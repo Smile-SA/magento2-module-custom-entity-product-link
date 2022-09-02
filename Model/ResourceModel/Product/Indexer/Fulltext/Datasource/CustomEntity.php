@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource;
 
 use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\DataObject;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Store\Model\StoreManagerInterface;
 use Smile\CustomEntity\Model\ResourceModel\CustomEntity\Attribute\CollectionFactory;
@@ -29,12 +30,12 @@ class CustomEntity extends AbstractAttributeData
     /**
      * CustomEntity constructor.
      *
-     * @param ResourceConnection    $resource          Resource connection.
-     * @param StoreManagerInterface $storeManager      Store manager.
-     * @param MetadataPool          $metadataPool      Metadata pool.
-     * @param CollectionFactory     $collectionFactory Custom entity attribute collection factory.
-     * @param ExpressionFactory     $expressionFactory Zend db expression factory.
-     * @param string|null           $entityType        Entity type.
+     * @param ResourceConnection $resource Resource connection.
+     * @param StoreManagerInterface $storeManager Store manager.
+     * @param MetadataPool $metadataPool Metadata pool.
+     * @param CollectionFactory $collectionFactory Custom entity attribute collection factory.
+     * @param ExpressionFactory $expressionFactory Zend db expression factory.
+     * @param string|null $entityType Entity type.
      */
     public function __construct(
         ResourceConnection $resource,
@@ -52,13 +53,13 @@ class CustomEntity extends AbstractAttributeData
     /**
      * Return custom entity row data.
      *
-     * @param int   $storeId      Store id.
+     * @param int|string   $storeId      Store id.
      * @param array $entityIds    Entity ids.
      * @param array $attributeIds Attribute ids.
      *
      * @return array
      */
-    public function loadCustomEntity(int $storeId, array $entityIds, array $attributeIds)
+    public function loadCustomEntity($storeId, array $entityIds, array $attributeIds): array
     {
         $select = $this->getConnection()->select()
             ->from(
@@ -101,9 +102,9 @@ class CustomEntity extends AbstractAttributeData
     /**
      * Return custom entity attributes for indexing.
      *
-     * @return \Magento\Framework\DataObject[]
+     * @return DataObject[]
      */
-    private function getCustomEntityAttributes()
+    private function getCustomEntityAttributes(): array
     {
         /** @var \Smile\CustomEntity\Model\ResourceModel\CustomEntity\Attribute\Collection $collection */
         $collection = $this->collectionFactory->create();

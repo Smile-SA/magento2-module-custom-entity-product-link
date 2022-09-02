@@ -39,12 +39,12 @@ class EavPlugin
      * Constructor.
      *
      * @param EntityCollectionFactory $entityCollectionFactory Custom entity collection factory.
-     * @param ArrayManager            $arrayManager            Array manager util.
+     * @param ArrayManager $arrayManager Array manager util.
      */
     public function __construct(EntityCollectionFactory $entityCollectionFactory, ArrayManager $arrayManager)
     {
         $this->entityCollectionFactory = $entityCollectionFactory;
-        $this->arrayManager            = $arrayManager;
+        $this->arrayManager = $arrayManager;
     }
 
     /**
@@ -56,7 +56,7 @@ class EavPlugin
      * @param string                    $groupCode Group code.
      * @param int                       $sortOrder Sort order.
      *
-     * @return array
+     * @return array|null
      */
     public function aroundSetupAttributeMeta(
         EavModifier $subject,
@@ -64,7 +64,7 @@ class EavPlugin
         ProductAttributeInterface $attribute,
         $groupCode,
         $sortOrder
-    ) {
+    ): ?array {
         $meta = $proceed($attribute, $groupCode, $sortOrder);
 
         if ($attribute->getFrontendInput() == "smile_custom_entity") {
@@ -91,9 +91,9 @@ class EavPlugin
      *
      * @param ProductAttributeInterface $attribute Attribute.
      *
-     * @return array
+     * @return array|null
      */
-    private function getOptions(ProductAttributeInterface $attribute)
+    private function getOptions(ProductAttributeInterface $attribute): ?array
     {
         $attributeSetId = $attribute->getCustomEntityAttributeSetId();
 

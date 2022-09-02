@@ -34,7 +34,7 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     private $resourceModel;
 
     /**
-     * @var \Smile\ElasticsuiteCore\Api\Index\Mapping\FieldInterface[]
+     * @var FieldInterface[]
      */
     private $fields = [];
 
@@ -51,10 +51,10 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     /**
      * CustomEntity constructor.
      *
-     * @param ResourceModel   $resourceModel   Resource model
-     * @param FieldFactory    $fieldFactory    Field factory.
+     * @param ResourceModel $resourceModel Resource model
+     * @param FieldFactory $fieldFactory Field factory.
      * @param AttributeHelper $attributeHelper Attribute helper.
-     * @param MappingHelper   $mappingHelper   Mapping helper.
+     * @param MappingHelper $mappingHelper Mapping helper.
      */
     public function __construct(
         ResourceModel $resourceModel,
@@ -77,7 +77,7 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
      *
      * @return array
      */
-    public function addData($storeId, array $indexData)
+    public function addData($storeId, array $indexData): array
     {
         $productIds   = array_keys($indexData);
         $customEntitiesData = $this->loadCustomEntityRowData($storeId, $productIds, array_keys($this->attributeById));
@@ -104,9 +104,9 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     /**
      * Return a list of mapping fields.
      *
-     * @return \Smile\ElasticsuiteCore\Api\Index\Mapping\FieldInterface[]
+     * @return FieldInterface[]
      */
-    public function getFields()
+    public function getFields(): array
     {
         return $this->fields;
     }
@@ -116,7 +116,7 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
      *
      * @return $this
      */
-    private function initAttributes()
+    private function initAttributes(): self
     {
         $attributeCollection = $this->attributeHelper->getAttributeCollection();
         $attributeCollection->addFieldToFilter('frontend_input', 'smile_custom_entity');
@@ -133,13 +133,13 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     /**
      * Return custom entities row data.
      *
-     * @param int   $storeId      Current store id.
-     * @param array $productIds   Product ids.
+     * @param int|string $storeId Current store id.
+     * @param array $productIds Product ids.
      * @param array $attributeIds Attribute ids.
      *
      * @return array
      */
-    private function loadCustomEntityRowData(int $storeId, array $productIds, array $attributeIds)
+    private function loadCustomEntityRowData($storeId, array $productIds, array $attributeIds): array
     {
         return $this->resourceModel->loadCustomEntity($storeId, $productIds, $attributeIds);
     }
@@ -151,7 +151,7 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
      *
      * @return $this
      */
-    private function addField(AttributeInterface $attribute)
+    private function addField(AttributeInterface $attribute): self
     {
         $fieldName = $attribute->getAttributeCode();
         $fieldConfig = $this->attributeHelper->getMappingFieldOptions($attribute);

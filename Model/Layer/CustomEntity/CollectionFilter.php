@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model\Layer\CustomEntity;
 
+use Magento\Catalog\Model\Category;
+use Magento\Catalog\Model\Config;
 use Magento\Catalog\Model\Layer\Category\CollectionFilter as BaseCollectionFilter;
 use Magento\Catalog\Model\Layer\CollectionFilterInterface;
+use Magento\Catalog\Model\Product\Visibility;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Framework\Registry;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
@@ -29,22 +33,22 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
     private $productHelper;
 
     /**
-     * @var \Smile\ElasticsuiteCore\Search\Request\Query\QueryFactory
+     * @var QueryFactory
      */
     private $queryFactory;
 
     /**
      * CollectionFilter constructor.
      *
-     * @param \Magento\Catalog\Model\Product\Visibility $productVisibility Product visibility model.
-     * @param \Magento\Catalog\Model\Config             $catalogConfig     Catalog config.
-     * @param ProductHelper                             $productHelper     Product helper.
-     * @param Registry                                  $registry          Registry.
-     * @param Mapping                                   $mappingHelper     Mapping helper.
+     * @param Visibility $productVisibility Product visibility model.
+     * @param Config $catalogConfig Catalog config.
+     * @param ProductHelper $productHelper Product helper.
+     * @param Registry $registry Registry.
+     * @param Mapping $mappingHelper Mapping helper.
      */
     public function __construct(
-        \Magento\Catalog\Model\Product\Visibility $productVisibility,
-        \Magento\Catalog\Model\Config $catalogConfig,
+        Visibility $productVisibility,
+        Config $catalogConfig,
         ProductHelper $productHelper,
         Registry $registry,
         QueryFactory $queryFactory
@@ -58,12 +62,12 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
     /**
      * Filter product collection.
      *
-     * @param \Magento\Catalog\Model\ResourceModel\Product\Collection $collection Collection.
-     * @param \Magento\Catalog\Model\Category                         $category   Category.
+     * @param Collection $collection Collection.
+     * @param Category $category   Category.
      *
      * @return void
      */
-    public function filter($collection, \Magento\Catalog\Model\Category $category)
+    public function filter($collection, Category $category): void
     {
         parent::filter($collection, $category);
         $currentCustomEntity = $this->getCurrentCustomEntity();
@@ -82,7 +86,7 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
      *
      * @return CustomEntityInterface|null
      */
-    private function getCurrentCustomEntity()
+    private function getCurrentCustomEntity(): ?CustomEntityInterface
     {
         return $this->registry->registry('current_custom_entity');
     }
@@ -90,9 +94,9 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
     /**
      * Return attribute code link to current custom entity.
      *
-     * @return string
+     * @return string|null
      */
-    private function getAttributeCode()
+    private function getAttributeCode(): ?string
     {
         return $this->productHelper->getFilterableAttributeCode($this->getCurrentCustomEntity());
     }

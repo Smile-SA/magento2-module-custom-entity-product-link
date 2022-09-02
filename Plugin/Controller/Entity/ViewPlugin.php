@@ -6,6 +6,7 @@ namespace Smile\CustomEntityProductLink\Plugin\Controller\Entity;
 
 use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Framework\Registry;
+use Smile\CustomEntity\Controller\Entity\View;
 use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
 
 /**
@@ -24,7 +25,7 @@ class ViewPlugin
     private $registry;
 
     /**
-     * @var Product
+     * @var ProductHelper
      */
     private $productHelper;
 
@@ -32,8 +33,8 @@ class ViewPlugin
      * ViewPlugin constructor.
      *
      * @param Resolver $layerResolver Layer resolver.
-     * @param Registry $registry      Registry.
-     * @param Product  $productHelper Product link helper.
+     * @param Registry $registry Registry.
+     * @param ProductHelper $productHelper Product link helper.
      */
     public function __construct(
         Resolver $layerResolver,
@@ -48,13 +49,13 @@ class ViewPlugin
     /**
      * Create an layer context and add body class.
      *
-     * @param \Smile\CustomEntity\Controller\Entity\View $subject Custom entity view controller.
-     * @param callable                                   $proceed Callable method.
+     * @param View $subject Custom entity view controller.
+     * @param callable $proceed Callable method.
      *
      * @return mixed
      * @SuppressWarnings(PHPMD.UnusedFormalParameters)
      */
-    public function aroundExecute(\Smile\CustomEntity\Controller\Entity\View $subject, callable $proceed)
+    public function aroundExecute(View $subject, callable $proceed)
     {
         $this->layerResolver->create('smile_custom_entity');
         /** @var \Magento\Framework\View\Result\Page $page */
@@ -72,7 +73,7 @@ class ViewPlugin
      *
      * @return bool
      */
-    private function hasFilterableAttribute()
+    private function hasFilterableAttribute(): bool
     {
         return $this->productHelper->getFilterableAttributeCode(
             $this->registry->registry('current_custom_entity')

@@ -34,9 +34,9 @@ class ProductPlugin
      * @param Product $source     Product model.
      * @param array   $identities Identities.
      *
-     * @return array
+     * @return array|null
      */
-    public function afterGetIdentities(Product $source, array $identities)
+    public function afterGetIdentities(Product $source, array $identities): ?array
     {
         $customEntityProductAttributes = $this->helper->getCustomEntityProductAttributes();
 
