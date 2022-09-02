@@ -19,9 +19,9 @@ interface CustomEntityProductLinkManagementInterface
      *
      * @param ProductInterface $product Product.
      *
-     * return CustomEntityInterface[]
+     * @return CustomEntityInterface[]|null
      */
-    public function getCustomEntities(ProductInterface $product);
+    public function getCustomEntities(ProductInterface $product): ?array;
 
     /**
      * Return custom entities assigned to all product ids.
@@ -38,7 +38,7 @@ interface CustomEntityProductLinkManagementInterface
      *
      * @param ProductInterface $product Product.
      *
-     * @return ProductInterface
+     * @return ProductInterface|null
      */
-    public function saveCustomEntities(ProductInterface $product);
+    public function saveCustomEntities(ProductInterface $product): ?ProductInterface;
 }

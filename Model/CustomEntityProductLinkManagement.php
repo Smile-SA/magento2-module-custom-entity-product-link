@@ -9,6 +9,8 @@ use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Smile\CustomEntity\Api\CustomEntityRepositoryInterface;
+use Smile\CustomEntityProductLink\Helper\Data;
+use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 
 /**
  * Custom entity product link management implementation.
@@ -26,7 +28,7 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
     private $customEntityRepository;
 
     /**
-     * @var \Smile\CustomEntityProductLink\Helper\Data
+     * @var Data
      */
     private $helper;
 
@@ -38,27 +40,31 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
     /**
      * Constructor.
      *
-     * @param ResourceModel\CustomEntityProductLinkManagement         $resourceModel                Resource model.
-     * @param \Smile\CustomEntity\Api\CustomEntityRepositoryInterface $customEntityRepository       Custom entity repository.
-     * @param \Smile\CustomEntityProductLink\Helper\Data              $helper                       Custom entity helper.
-     * @param SearchCriteriaBuilderFactory                            $searchCriteriaBuilderFactory Search critieria builder.
+     * @param ResourceModel\CustomEntityProductLinkManagement $resourceModel Resource model.
+     * @param CustomEntityRepositoryInterface $customEntityRepository Custom entity repository.
+     * @param Data $helper Custom entity helper.
+     * @param SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory Search critieria builder.
      */
     public function __construct(
         ResourceModel\CustomEntityProductLinkManagement $resourceModel,
-        \Smile\CustomEntity\Api\CustomEntityRepositoryInterface $customEntityRepository,
-        \Smile\CustomEntityProductLink\Helper\Data $helper,
+        CustomEntityRepositoryInterface $customEntityRepository,
+        Data $helper,
         SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory
     ) {
-        $this->resourceModel          = $resourceModel;
+        $this->resourceModel = $resourceModel;
         $this->customEntityRepository = $customEntityRepository;
-        $this->helper                 = $helper;
+        $this->helper = $helper;
         $this->searchCriteriaBuilderFactory = $searchCriteriaBuilderFactory;
     }
 
     /**
-     * {@inheritDoc}
+     * Return custom entities assigned to a product.
+     *
+     * @param ProductInterface $product Product.
+     *
+     * @return CustomEntityInterface[]|null
      */
-    public function getCustomEntities(ProductInterface $product)
+    public function getCustomEntities(ProductInterface $product): ?array
     {
         $entities = [];
 
@@ -72,7 +78,12 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
     }
 
     /**
-     * {@inheritDoc}
+     * Return custom entities assigned to all product ids.
+     *
+     * @param array $productIds     Product ids.
+     * @param array $attributeCodes Attribute codes filter.
+     *
+     * @return mixed
      */
     public function getCustomEntitiesByProductIds(array $productIds, array $attributeCodes = [])
     {
@@ -101,9 +112,13 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
     }
 
     /**
-     * {@inheritDoc}
+     * Persists custom entities product links.
+     *
+     * @param ProductInterface $product Product.
+     *
+     * @return ProductInterface|null
      */
-    public function saveCustomEntities(ProductInterface $product)
+    public function saveCustomEntities(ProductInterface $product): ?ProductInterface
     {
         foreach ($this->helper->getCustomEntityProductAttributes() as $attribute) {
             $entityIds = $product->getData($attribute->getAttributeCode());

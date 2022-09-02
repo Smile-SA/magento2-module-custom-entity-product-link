@@ -27,11 +27,11 @@ class CustomEntityProductLinkManagement extends AbstractDb
     /**
      * Get custom entity data.
      *
-     * @param int $productId Product id
+     * @param int|string $productId Product id
      *
-     * @return array
+     * @return array|null
      */
-    public function loadCustomEntityData(int $productId)
+    public function loadCustomEntityData($productId): ?array
     {
         return $this->loadCustomEntityDataByProductIds([$productId]);
     }
@@ -39,12 +39,12 @@ class CustomEntityProductLinkManagement extends AbstractDb
     /**
      * Get custom entity data from product ids. Return an associative array with at first level product id.
      *
-     * @param array $productIds     Product Ids
+     * @param array $productIds Product Ids
      * @param array $attributeCodes Attribute codes filter.
      *
-     * @return array
+     * @return array|null
      */
-    public function loadCustomEntityDataByProductIds(array $productIds, array $attributeCodes = [])
+    public function loadCustomEntityDataByProductIds(array $productIds, array $attributeCodes = []): ?array
     {
         $select = $this->getConnection()->select()->from(['e' => $this->getTable(self::RELATION_TABLE_NAME)])
             ->join(['a' => $this->getTable('eav_attribute')], 'e.attribute_id = a.attribute_id', ['attribute_code'])
@@ -59,13 +59,13 @@ class CustomEntityProductLinkManagement extends AbstractDb
     /**
      * Persist links.
      *
-     * @param int   $productId   Product id.
-     * @param int   $attributeId Attribute id.
-     * @param array $entityIds   Linked entities ids.
+     * @param int|string $productId Product id.
+     * @param int|string $attributeId Attribute id.
+     * @param array $entityIds Linked entities ids.
      *
-     * @return \Smile\CustomEntityProductLink\Model\ResourceModel\CustomEntityProductLinkManagement
+     * @return CustomEntityProductLinkManagement
      */
-    public function saveLinks($productId, $attributeId, $entityIds)
+    public function saveLinks($productId, $attributeId, array $entityIds): CustomEntityProductLinkManagement
     {
         $table = $this->getTable(self::RELATION_TABLE_NAME);
 

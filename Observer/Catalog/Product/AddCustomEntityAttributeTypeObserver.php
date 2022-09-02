@@ -4,30 +4,37 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Observer\Catalog\Product;
 
+use Magento\Framework\Event\Observer;
+use Magento\Framework\Module\Manager;
+
 /**
  * Add smile_custom_entity to the available input types.
  */
 class AddCustomEntityAttributeTypeObserver implements \Magento\Framework\Event\ObserverInterface
 {
     /**
-     * @var \Magento\Framework\Module\Manager
+     * @var Manager
      */
     protected $moduleManager;
 
     /**
      * Constructor.
      *
-     * @param \Magento\Framework\Module\Manager $moduleManager Magento module manager.
+     * @param Manager $moduleManager Magento module manager.
      */
-    public function __construct(\Magento\Framework\Module\Manager $moduleManager)
+    public function __construct(Manager $moduleManager)
     {
         $this->moduleManager = $moduleManager;
     }
 
     /**
-     * {@inheritDoc}
+     * Add custom entities attribute type observer.
+     *
+     * @param Observer $observer Observer.
+     *
+     * @return void
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer): void
     {
         if (!$this->moduleManager->isOutputEnabled('Smile_CustomEntityProductLink')) {
             return;

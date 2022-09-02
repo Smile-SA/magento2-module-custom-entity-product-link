@@ -20,7 +20,7 @@ class CustomEntityAttributeSaveBeforeObserver implements ObserverInterface
      *
      * @return void
      */
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
         /** @var \Magento\Eav\Model\Entity\Attribute $attribute */
         $attribute = $observer->getEvent()->getData('attribute');

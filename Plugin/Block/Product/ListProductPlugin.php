@@ -16,12 +16,12 @@ class ListProductPlugin
     /**
      * Append custom entities identities.
      *
-     * @param ListProduct $source     List product block.
-     * @param array       $identities Identities
+     * @param ListProduct $source List product block.
+     * @param array $identities Identities
      *
-     * @return array
+     * @return array|null
      */
-    public function afterGetIdentities(ListProduct $source, array $identities)
+    public function afterGetIdentities(ListProduct $source, array $identities): ?array
     {
         /** @var ProductInterface $product */
         foreach ($source->getLoadedProductCollection() as $product) {

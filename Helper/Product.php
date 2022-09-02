@@ -28,7 +28,7 @@ class Product extends AbstractHelper
     /**
      * Product constructor.
      *
-     * @param Context                 $context                 Context.
+     * @param Context $context Context.
      * @param FilterableAttributeList $filterableAttributeList Filterable attribute list.
      */
     public function __construct(
@@ -42,8 +42,8 @@ class Product extends AbstractHelper
     /**
      * Return custom entities for product and attribute code.
      *
-     * @param ProductInterface $product       Product.
-     * @param string           $attributeCode Attribuce code.
+     * @param ProductInterface $product Product.
+     * @param string $attributeCode Attribuce code.
      *
      * @return CustomEntityInterface[]
      */
@@ -66,9 +66,9 @@ class Product extends AbstractHelper
      *
      * @param CustomEntityInterface $customEntity Custom entity.
      *
-     * @return string
+     * @return string|null
      */
-    public function getFilterableAttributeCode(CustomEntityInterface $customEntity)
+    public function getFilterableAttributeCode(CustomEntityInterface $customEntity): ?string
     {
         if (!array_key_exists($customEntity->getId(), $this->filterableAttributeCodes)) {
             $this->filterableAttributeCodes[$customEntity->getId()] = '';

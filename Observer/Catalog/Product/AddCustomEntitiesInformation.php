@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Observer\Catalog\Product;
 
+use Magento\Catalog\Model\Config;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
+use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
+use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface as CustomEntityProductLinkManagementInterfaceAlias;
 
 /**
  * Add custom entities information on product collection.
@@ -14,24 +17,24 @@ use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface
 class AddCustomEntitiesInformation implements ObserverInterface
 {
     /**
-     * @var CustomEntityProductLinkManagementInterface
+     * @var CustomEntityProductLinkManagementInterfaceAlias
      */
     private $customEntityProductLinkManagement;
 
     /**
-     * @var \Magento\Catalog\Model\Config
+     * @var Config
      */
     private $catalogConfig;
 
     /**
      * AddCustomEntitiesInformation constructor.
      *
-     * @param CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement Custom entity product link management.
-     * @param \Magento\Catalog\Model\Config              $catalogConfig                     Catalog config.
+     * @param CustomEntityProductLinkManagementInterfaceAlias $customEntityProductLinkManagement Custom entity product link management.
+     * @param Config $catalogConfig Catalog config.
      */
     public function __construct(
-        CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement,
-        \Magento\Catalog\Model\Config $catalogConfig
+        CustomEntityProductLinkManagementInterfaceAlias $customEntityProductLinkManagement,
+        Config                                          $catalogConfig
     ) {
         $this->customEntityProductLinkManagement = $customEntityProductLinkManagement;
         $this->catalogConfig = $catalogConfig;
@@ -44,13 +47,13 @@ class AddCustomEntitiesInformation implements ObserverInterface
      *
      * @return void
      */
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
-        /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $collection */
+        /** @var Collection $collection */
         $collection = $observer->getEvent()->getData('collection');
         $attributeCodes = array_keys(array_filter(
             $this->catalogConfig->getAttributesUsedInProductListing(),
-            function (\Magento\Eav\Model\Entity\Attribute\AbstractAttribute $attribute) {
+            function (AbstractAttribute $attribute) {
                 return $attribute->getFrontendInput() == 'smile_custom_entity';
             }
         ));

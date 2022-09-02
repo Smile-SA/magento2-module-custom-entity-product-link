@@ -8,9 +8,12 @@ use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Eav\Model\Entity\Attribute\Frontend\AbstractFrontend;
 use Magento\Eav\Model\Entity\Attribute\Source\BooleanFactory;
 use Magento\Framework\App\CacheInterface;
+use Magento\Framework\DataObject;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Serialize\Serializer\Json as Serializer;
 use Magento\Store\Model\StoreManagerInterface;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
+use Smile\CustomEntityProductLink\Block\Entity\Attribute\CustomEntity\Renderer;
 use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
 
 /**
@@ -31,14 +34,14 @@ class CustomEntity extends AbstractFrontend
     /**
      * CustomEntity constructor.
      *
-     * @param BooleanFactory             $attrBooleanFactory Attribute boolean factory.
-     * @param ProductHelper              $productHelper      Product helper.
-     * @param array                      $renderers          Renderers.
-     * @param CacheInterface|null        $cache              Cache.
-     * @param null                       $storeResolver      Store resolver.
-     * @param array|null                 $cacheTags          Cache tags.
-     * @param StoreManagerInterface|null $storeManager       Store manager.
-     * @param Serializer|null            $serializer         Serializer.
+     * @param BooleanFactory $attrBooleanFactory Attribute boolean factory.
+     * @param ProductHelper $productHelper Product helper.
+     * @param array $renderers Renderers.
+     * @param CacheInterface|null $cache Cache.
+     * @param null $storeResolver Store resolver.
+     * @param array|null $cacheTags Cache tags.
+     * @param StoreManagerInterface|null $storeManager Store manager.
+     * @param Serializer|null $serializer Serializer.
      */
     public function __construct(
         BooleanFactory $attrBooleanFactory,
@@ -56,9 +59,14 @@ class CustomEntity extends AbstractFrontend
     }
 
     /**
-     * {@inheritdoc}
+     * Get value of object
+     *
+     * @param DataObject $object Object.
+     *
+     * @return string
+     * @throws NoSuchEntityException
      */
-    public function getValue(\Magento\Framework\DataObject $object)
+    public function getValue(DataObject $object): string
     {
         /** @var ProductInterface $object */
         $value = [];
@@ -75,10 +83,10 @@ class CustomEntity extends AbstractFrontend
      *
      * @param CustomEntityInterface $customEntity Custom entity.
      *
-     * @return \Smile\CustomEntityProductLink\Block\Entity\Attribute\CustomEntity\Renderer
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return Renderer
+     * @throws NoSuchEntityException
      */
-    private function getRenderer(CustomEntityInterface $customEntity)
+    private function getRenderer(CustomEntityInterface $customEntity): Renderer
     {
         /** @var \Smile\CustomEntity\Model\CustomEntity $customEntity */
         $renderer = $this->renderers[$customEntity->getAttributeSetUrlKey()] ?? $this->renderers['default'];

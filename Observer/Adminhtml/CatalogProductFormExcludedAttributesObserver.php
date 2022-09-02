@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Observer\Adminhtml;
 
 use Magento\Catalog\Block\Adminhtml\Product\Edit\Action\Attribute\Tab\Attributes;
+use Magento\Catalog\Helper\Product\Edit\Action\Attribute;
+use Magento\Framework\DataObject;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
@@ -14,16 +16,16 @@ use Magento\Framework\Event\ObserverInterface;
 class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
 {
     /**
-     * @var \Magento\Catalog\Helper\Product\Edit\Action\Attribute
+     * @var Attribute
      */
     private $attributeAction;
 
     /**
      * CatalogProductFormExcludedAttributesObserver constructor.
      *
-     * @param \Magento\Catalog\Helper\Product\Edit\Action\Attribute $attributeAction Attribute action helper.
+     * @param Attribute $attributeAction Attribute action helper.
      */
-    public function __construct(\Magento\Catalog\Helper\Product\Edit\Action\Attribute $attributeAction)
+    public function __construct(Attribute $attributeAction)
     {
         $this->attributeAction = $attributeAction;
     }
@@ -35,7 +37,7 @@ class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
      *
      * @return void
      */
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
         /** @var Attributes $attributesTab */
         $attributesTab = $observer->getEvent()->getData('object');
@@ -47,9 +49,9 @@ class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
     /**
      * Return attribute codes.
      *
-     * @return array
+     * @return array|null
      */
-    private function getCustomEntityAttributeCodes()
+    private function getCustomEntityAttributeCodes(): ?array
     {
         return array_map(function ($attribute) {
             return $attribute->getAttributeCode();
@@ -59,7 +61,7 @@ class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
     /**
      * Return custom entity attributes.
      *
-     * @return array|\Magento\Framework\DataObject[]
+     * @return array|DataObject[]
      */
     private function getCustomEntityAttributes()
     {

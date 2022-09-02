@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Setup;
 
+use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
+use Smile\ScopedEav\Setup\SchemaSetupFactory;
 
 /**
  * Custom entity product link schema setup.
@@ -14,16 +16,16 @@ use Magento\Framework\Setup\SchemaSetupInterface;
 class InstallSchema implements InstallSchemaInterface
 {
     /**
-     * @var \Smile\ScopedEav\Setup\SchemaSetupFactory
+     * @var SchemaSetupFactory
      */
     private $schemaSetupFactory;
 
     /**
      * Constructor.
      *
-     * @param \Smile\ScopedEav\Setup\SchemaSetupFactory $schemaSetupFactory Scoped EAV schema setup factory.
+     * @param SchemaSetupFactory $schemaSetupFactory Scoped EAV schema setup factory.
      */
-    public function __construct(\Smile\ScopedEav\Setup\SchemaSetupFactory $schemaSetupFactory)
+    public function __construct(SchemaSetupFactory $schemaSetupFactory)
     {
         $this->schemaSetupFactory = $schemaSetupFactory;
     }
@@ -50,9 +52,9 @@ class InstallSchema implements InstallSchemaInterface
      *
      * @param SchemaSetupInterface $setup Setup.
      *
-     * @return \Magento\Framework\DB\Ddl\Table
+     * @return Table|null
      */
-    private function getProductLinkTable(SchemaSetupInterface $setup)
+    private function getProductLinkTable(SchemaSetupInterface $setup): ?Table
     {
         $entityTable = 'smile_custom_entity';
         $connection  = $setup->getConnection();
@@ -60,21 +62,21 @@ class InstallSchema implements InstallSchemaInterface
         $table = $connection->newTable($setup->getTable('catalog_product_custom_entity_link'))
             ->addColumn(
                 'product_id',
-                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                Table::TYPE_INTEGER,
                 null,
                 ['unsigned' => true, 'nullable' => false, 'primary' => true],
                 'Entity ID'
             )
             ->addColumn(
                 'attribute_id',
-                \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+                Table::TYPE_SMALLINT,
                 null,
                 ['unsigned' => true, 'nullable' => false, 'default' => '0'],
                 'Attribute ID'
             )
             ->addColumn(
                 'custom_entity_id',
-                \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+                Table::TYPE_INTEGER,
                 null,
                 ['unsigned' => true, 'nullable' => false, 'primary' => true],
                 'Entity ID'
@@ -88,21 +90,21 @@ class InstallSchema implements InstallSchemaInterface
                 'attribute_id',
                 $setup->getTable('eav_attribute'),
                 'attribute_id',
-                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+                Table::ACTION_CASCADE
             )
             ->addForeignKey(
                 $setup->getFkName('catalog_product_custom_entity_link', 'product_id', 'catalog_product_entity', 'entity_id'),
                 'product_id',
                 $setup->getTable('catalog_product_entity'),
                 'entity_id',
-                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+                Table::ACTION_CASCADE
             )
             ->addForeignKey(
                 $setup->getFkName('catalog_product_custom_entity_link', 'custom_entity_id', $entityTable, 'entity_id'),
                 'custom_entity_id',
                 $setup->getTable($entityTable),
                 'entity_id',
-                \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+                Table::ACTION_CASCADE
             )
             ->setComment('Product custom entities relations');
 
