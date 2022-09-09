@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.4] - 2022-09-14
+[1.3.4]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.3.3...1.3.4
+
+- Specify php version on composer.json
+- Use Escaper on templates
+
 ## [1.3.3] - 2022-09-06
 [1.3.3]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.3.2...1.3.3
 

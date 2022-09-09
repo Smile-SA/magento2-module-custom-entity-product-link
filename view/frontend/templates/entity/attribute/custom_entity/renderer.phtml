@@ -1,14 +1,20 @@
 <?php
 /**
  * Attribute frontend renderer
+ *
+ * @var $block \Smile\CustomEntityProductLink\Block\Entity\Attribute\CustomEntity\Renderer
+ * @var $escaper Magento\Framework\Escaper
  */
-/** @var \Smile\CustomEntityProductLink\Block\Entity\Attribute\CustomEntity\Renderer $block */
+
 $customEntity = $block->getCustomEntity();
 ?>
 
-<a href="<?= $this->getUrl($customEntity->getUrlPath()); ?>">
+<a href="<?= $escaper->escapeUrl($this->getUrl($customEntity->getUrlPath())); ?>">
     <?php if ($customEntity->getImage()): ?>
-    <img src="<?= $customEntity->getImageUrl('image') ?>" alt="<?= $customEntity->getName(); ?>" width="50" height="50" />
+    <img src="<?= $escaper->escapeUrl($customEntity->getImageUrl('image')) ?>"
+         alt="<?= $customEntity->getName(); ?>"
+         width="50"
+         height="50" />
     <?php else : ?>
     <?= $customEntity->getName(); ?>
     <?php endif;?>
