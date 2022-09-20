@@ -6,6 +6,7 @@ namespace Smile\CustomEntityProductLink\Model\ResourceModel\Search;
 
 use Magento\CatalogSearch\Model\ResourceModel\Search\Collection;
 use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\DB\Select;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
@@ -41,17 +42,17 @@ class CustomCollection extends Collection
      * We have extend this method in order to add the smile custom entities sql request and therefore this makes the
      * search on the smile_custom_entity_varchar work correctly
      *
-     * @param mixed $query                    Query
+     * @param mixed $query Query
      * @param bool  $searchOnlyInCurrentStore Search only in current store or in all stores
      *
-     * @return string|null
+     * @return string
      */
-    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true): ?string
+    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true): string
     {
         $sql = parent::_getSearchEntityIdsSql($query, $searchOnlyInCurrentStore);
 
         $selects = $this->_getSmileCustomSql($query);
-        $sql = $sql->union($selects, \Magento\Framework\DB\Select::SQL_UNION_ALL);
+        $sql = $sql->union($selects, Select::SQL_UNION_ALL);
 
         return $sql;
     }
