@@ -47,7 +47,7 @@ class CustomCollection extends Collection
      *
      * @return string
      */
-    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true): string
+    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true)
     {
         $sql = parent::_getSearchEntityIdsSql($query, $searchOnlyInCurrentStore);
 
