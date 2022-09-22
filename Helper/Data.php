@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Helper;
 
-use Magento\Catalog\Model\ResourceModel\Product\Attribute\CollectionFactory as ProductAttributeCollectionFactory;
 use Magento\Catalog\Api\Data\ProductAttributeInterface;
+use Magento\Catalog\Model\ResourceModel\Product\Attribute\CollectionFactory as ProductAttributeCollectionFactory;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 
@@ -17,7 +17,7 @@ class Data extends AbstractHelper
     /**
      * @var ProductAttributeInterface[]
      */
-    private $customEntityProductAttributes;
+    private array $customEntityProductAttributes;
 
     /**
      * Constructor.
@@ -47,8 +47,6 @@ class Data extends AbstractHelper
      * Init attribute list.
      *
      * @param ProductAttributeCollectionFactory $attributeCollectionFactory Product attribute collection factory.
-     *
-     * @return void
      */
     private function initAttributes(ProductAttributeCollectionFactory $attributeCollectionFactory): void
     {

@@ -12,10 +12,7 @@ use Magento\Framework\Module\Manager;
  */
 class AddCustomEntityAttributeTypeObserver implements \Magento\Framework\Event\ObserverInterface
 {
-    /**
-     * @var Manager
-     */
-    protected $moduleManager;
+    protected Manager $moduleManager;
 
     /**
      * Constructor.
@@ -31,8 +28,6 @@ class AddCustomEntityAttributeTypeObserver implements \Magento\Framework\Event\O
      * Add custom entities attribute type observer.
      *
      * @param Observer $observer Observer.
-     *
-     * @return void
      */
     public function execute(Observer $observer): void
     {

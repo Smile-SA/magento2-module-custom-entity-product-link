@@ -18,12 +18,9 @@ class Product extends AbstractHelper
     /**
      * @var array
      */
-    private $filterableAttributeCodes = [];
+    private array $filterableAttributeCodes = [];
 
-    /**
-     * @var FilterableAttributeList
-     */
-    private $filterableAttributeList;
+    private FilterableAttributeList $filterableAttributeList;
 
     /**
      * Product constructor.
@@ -44,7 +41,6 @@ class Product extends AbstractHelper
      *
      * @param ProductInterface $product Product.
      * @param string $attributeCode Attribuce code.
-     *
      * @return CustomEntityInterface[]
      */
     public function getCustomEntities(ProductInterface $product, string $attributeCode): array
@@ -65,15 +61,14 @@ class Product extends AbstractHelper
      * Return filterable attribute code for a custom entity.
      *
      * @param CustomEntityInterface $customEntity Custom entity.
-     *
-     * @return string|null
      */
     public function getFilterableAttributeCode(CustomEntityInterface $customEntity): ?string
     {
         if (!array_key_exists($customEntity->getId(), $this->filterableAttributeCodes)) {
             $this->filterableAttributeCodes[$customEntity->getId()] = '';
             foreach ($this->filterableAttributeList->getList() as $attribute) {
-                if ($attribute->getFrontendInput() == 'smile_custom_entity' &&
+                if (
+                    $attribute->getFrontendInput() == 'smile_custom_entity' &&
                     $attribute->getCustomEntityAttributeSetId() == $customEntity->getAttributeSetId()
                 ) {
                     $this->filterableAttributeCodes[$customEntity->getId()] = $attribute->getAttributeCode();

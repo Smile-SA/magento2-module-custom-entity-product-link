@@ -24,12 +24,9 @@ class CustomEntity extends AbstractFrontend
     /**
      * @var array
      */
-    private $renderers;
+    private array $renderers;
 
-    /**
-     * @var ProductHelper
-     */
-    private $productHelper;
+    private ProductHelper $productHelper;
 
     /**
      * CustomEntity constructor.
@@ -47,11 +44,11 @@ class CustomEntity extends AbstractFrontend
         BooleanFactory $attrBooleanFactory,
         ProductHelper $productHelper,
         array $renderers = [],
-        CacheInterface $cache = null,
+        ?CacheInterface $cache = null,
         $storeResolver = null,
-        array $cacheTags = null,
-        StoreManagerInterface $storeManager = null,
-        Serializer $serializer = null
+        ?array $cacheTags = null,
+        ?StoreManagerInterface $storeManager = null,
+        ?Serializer $serializer = null
     ) {
         parent::__construct($attrBooleanFactory, $cache, $storeResolver, $cacheTags, $storeManager, $serializer);
         $this->renderers = $renderers;
@@ -62,8 +59,6 @@ class CustomEntity extends AbstractFrontend
      * Get value of object
      *
      * @param DataObject $object Object.
-     *
-     * @return string
      * @throws NoSuchEntityException
      */
     public function getValue(DataObject $object): string
@@ -82,8 +77,6 @@ class CustomEntity extends AbstractFrontend
      * Return custom entity renderer.
      *
      * @param CustomEntityInterface $customEntity Custom entity.
-     *
-     * @return Renderer
      * @throws NoSuchEntityException
      */
     private function getRenderer(CustomEntityInterface $customEntity): Renderer

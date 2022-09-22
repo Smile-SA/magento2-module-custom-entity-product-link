@@ -16,15 +16,9 @@ use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface
  */
 class AddCustomEntitiesInformation implements ObserverInterface
 {
-    /**
-     * @var CustomEntityProductLinkManagementInterfaceAlias
-     */
-    private $customEntityProductLinkManagement;
+    private CustomEntityProductLinkManagementInterfaceAlias $customEntityProductLinkManagement;
 
-    /**
-     * @var Config
-     */
-    private $catalogConfig;
+    private Config $catalogConfig;
 
     /**
      * AddCustomEntitiesInformation constructor.
@@ -44,8 +38,6 @@ class AddCustomEntitiesInformation implements ObserverInterface
      * Add custom entities information on product collection.
      *
      * @param Observer $observer Observer.
-     *
-     * @return void
      */
     public function execute(Observer $observer): void
     {

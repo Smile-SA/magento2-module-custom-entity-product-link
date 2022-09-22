@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Plugin\Catalog\Ui\DataProvider\Product\Form\Modifier;
 
-use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as EntityCollectionFactory;
-use \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav as EavModifier;
-use \Magento\Catalog\Api\Data\ProductAttributeInterface;
+use Magento\Catalog\Api\Data\ProductAttributeInterface;
+use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav as EavModifier;
 use Magento\Framework\Stdlib\ArrayManager;
+use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as EntityCollectionFactory;
 use Smile\ScopedEav\Api\Data\EntityInterface;
 
 /**
@@ -15,25 +15,13 @@ use Smile\ScopedEav\Api\Data\EntityInterface;
  */
 class EavPlugin
 {
-    /**
-     * @var string
-     */
     const COMPONENT_NAME = 'Magento_Ui/js/form/element/ui-select';
 
-    /**
-     * @var string
-     */
     const ELEMENT_TEMPLATE = 'ui/grid/filters/elements/ui-select';
 
-    /**
-     * @var ArrayManager
-     */
-    private $arrayManager;
+    private ArrayManager $arrayManager;
 
-    /**
-     * @var EntityCollectionFactory
-     */
-    private $entityCollectionFactory;
+    private EntityCollectionFactory $entityCollectionFactory;
 
     /**
      * Constructor.
@@ -55,15 +43,14 @@ class EavPlugin
      * @param ProductAttributeInterface $attribute Attribute.
      * @param string                    $groupCode Group code.
      * @param int                       $sortOrder Sort order.
-     *
      * @return array|null
      */
     public function aroundSetupAttributeMeta(
         EavModifier $subject,
         callable $proceed,
         ProductAttributeInterface $attribute,
-        $groupCode,
-        $sortOrder
+        string $groupCode,
+        int $sortOrder
     ): ?array {
         $meta = $proceed($attribute, $groupCode, $sortOrder);
 
@@ -90,7 +77,6 @@ class EavPlugin
      * List of custom entities.
      *
      * @param ProductAttributeInterface $attribute Attribute.
-     *
      * @return array|null
      */
     private function getOptions(ProductAttributeInterface $attribute): ?array

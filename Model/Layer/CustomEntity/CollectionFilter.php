@@ -22,20 +22,11 @@ use Smile\ElasticsuiteCore\Search\Request\QueryInterface;
  */
 class CollectionFilter extends BaseCollectionFilter implements CollectionFilterInterface
 {
-    /**
-     * @var Registry
-     */
-    private $registry;
+    private Registry $registry;
 
-    /**
-     * @var ProductHelper
-     */
-    private $productHelper;
+    private ProductHelper $productHelper;
 
-    /**
-     * @var QueryFactory
-     */
-    private $queryFactory;
+    private QueryFactory $queryFactory;
 
     /**
      * CollectionFilter constructor.
@@ -64,10 +55,8 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
      *
      * @param Collection $collection Collection.
      * @param Category $category   Category.
-     *
-     * @return void
      */
-    public function filter($collection, Category $category): void
+    public function filter(Collection $collection, Category $category): void
     {
         parent::filter($collection, $category);
         $currentCustomEntity = $this->getCurrentCustomEntity();
@@ -83,8 +72,6 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
 
     /**
      * Return current custom entity interface.
-     *
-     * @return CustomEntityInterface|null
      */
     private function getCurrentCustomEntity(): ?CustomEntityInterface
     {
@@ -93,8 +80,6 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
 
     /**
      * Return attribute code link to current custom entity.
-     *
-     * @return string|null
      */
     private function getAttributeCode(): ?string
     {

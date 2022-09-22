@@ -15,10 +15,7 @@ use Magento\Framework\Event\ObserverInterface;
  */
 class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
 {
-    /**
-     * @var Attribute
-     */
-    private $attributeAction;
+    private Attribute $attributeAction;
 
     /**
      * CatalogProductFormExcludedAttributesObserver constructor.
@@ -34,8 +31,6 @@ class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
      * Excluded smile custom entity attributes.
      *
      * @param Observer $observer Observer.
-     *
-     * @return void
      */
     public function execute(Observer $observer): void
     {
@@ -63,7 +58,7 @@ class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
      *
      * @return array|DataObject[]
      */
-    private function getCustomEntityAttributes()
+    private function getCustomEntityAttributes(): array
     {
         $attributes = $this->attributeAction->getAttributes()->getItems();
 

@@ -13,10 +13,7 @@ use Smile\CustomEntityProductLink\Helper\Data;
  */
 class HelperPlugin
 {
-    /**
-     * @var Data
-     */
-    private $helper;
+    private Data $helper;
 
     /**
      * Constructor.
@@ -34,7 +31,6 @@ class HelperPlugin
      * @param Helper $helper Original helper.
      * @param Product $product Product.
      * @param array $productData Post product data.
-     *
      * @return array|null
      * @SuppressWarnings(PHPMD.UnusedFormalParameters)
      */
