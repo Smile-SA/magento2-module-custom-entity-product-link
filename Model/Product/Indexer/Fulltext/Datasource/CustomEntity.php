@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model\Product\Indexer\Fulltext\Datasource;
 
 use Magento\Eav\Api\Data\AttributeInterface;
-use Smile\ElasticsuiteCore\Api\Index\DatasourceInterface;
+use Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\CustomEntity as ResourceModel;
 use Smile\ElasticsuiteCatalog\Helper\AbstractAttribute as AttributeHelper;
+use Smile\ElasticsuiteCore\Api\Index\DatasourceInterface;
 use Smile\ElasticsuiteCore\Api\Index\Mapping\DynamicFieldProviderInterface;
 use Smile\ElasticsuiteCore\Api\Index\Mapping\FieldInterface;
-use Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\CustomEntity as ResourceModel;
 use Smile\ElasticsuiteCore\Helper\Mapping as MappingHelper;
 use Smile\ElasticsuiteCore\Index\Mapping\FieldFactory;
 
@@ -18,35 +18,23 @@ use Smile\ElasticsuiteCore\Index\Mapping\FieldFactory;
  */
 class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
 {
-    /**
-     * @var AttributeHelper
-     */
-    private $attributeHelper;
+    private AttributeHelper $attributeHelper;
 
     /**
      * @var AttributeInterface[]
      */
-    private $attributeById = [];
+    private array $attributeById = [];
 
-    /**
-     * @var ResourceModel
-     */
-    private $resourceModel;
+    private ResourceModel $resourceModel;
 
     /**
      * @var FieldInterface[]
      */
-    private $fields = [];
+    private array $fields = [];
 
-    /**
-     * @var FieldFactory
-     */
-    private $fieldFactory;
+    private FieldFactory $fieldFactory;
 
-    /**
-     * @var MappingHelper
-     */
-    private $mappingHelper;
+    private MappingHelper $mappingHelper;
 
     /**
      * CustomEntity constructor.
@@ -72,12 +60,11 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     /**
      * Append data to a list of documents.
      *
-     * @param integer $storeId   Store id.
+     * @param int $storeId Store id.
      * @param array   $indexData List of documents to get enriched by the datasources.
-     *
      * @return array
      */
-    public function addData($storeId, array $indexData): array
+    public function addData(int $storeId, array $indexData): array
     {
         $productIds   = array_keys($indexData);
         $customEntitiesData = $this->loadCustomEntityRowData($storeId, $productIds, array_keys($this->attributeById));
@@ -136,7 +123,6 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
      * @param int|string $storeId Current store id.
      * @param array $productIds Product ids.
      * @param array $attributeIds Attribute ids.
-     *
      * @return array
      */
     private function loadCustomEntityRowData($storeId, array $productIds, array $attributeIds): array
@@ -148,7 +134,6 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
      * Add mapping fields.
      *
      * @param AttributeInterface $attribute Atribute.
-     *
      * @return $this
      */
     private function addField(AttributeInterface $attribute): self

@@ -15,10 +15,7 @@ use Smile\ScopedEav\Setup\SchemaSetupFactory;
  */
 class InstallSchema implements InstallSchemaInterface
 {
-    /**
-     * @var SchemaSetupFactory
-     */
-    private $schemaSetupFactory;
+    private SchemaSetupFactory $schemaSetupFactory;
 
     /**
      * Constructor.
@@ -32,6 +29,7 @@ class InstallSchema implements InstallSchemaInterface
 
     /**
      * {@inheritdoc}
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
@@ -51,8 +49,6 @@ class InstallSchema implements InstallSchemaInterface
      * Create the relation table between entities and products.
      *
      * @param SchemaSetupInterface $setup Setup.
-     *
-     * @return Table|null
      */
     private function getProductLinkTable(SchemaSetupInterface $setup): ?Table
     {

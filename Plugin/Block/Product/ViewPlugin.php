@@ -17,7 +17,6 @@ class ViewPlugin
      *
      * @param View $source View product block.
      * @param array $identities Identities
-     *
      * @return array|null
      */
     public function afterGetIdentities(View $source, array $identities): ?array

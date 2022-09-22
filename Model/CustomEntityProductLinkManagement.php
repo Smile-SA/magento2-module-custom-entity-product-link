@@ -4,38 +4,26 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model;
 
+use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
-use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
-use Magento\Catalog\Api\Data\ProductInterface;
 use Smile\CustomEntity\Api\CustomEntityRepositoryInterface;
-use Smile\CustomEntityProductLink\Helper\Data;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
+use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
+use Smile\CustomEntityProductLink\Helper\Data;
 
 /**
  * Custom entity product link management implementation.
  */
 class CustomEntityProductLinkManagement implements CustomEntityProductLinkManagementInterface
 {
-    /**
-     * @var ResourceModel\CustomEntityProductLinkManagement
-     */
-    private $resourceModel;
+    private ResourceModel\CustomEntityProductLinkManagement $resourceModel;
 
-    /**
-     * @var CustomEntityRepositoryInterface
-     */
-    private $customEntityRepository;
+    private CustomEntityRepositoryInterface $customEntityRepository;
 
-    /**
-     * @var Data
-     */
-    private $helper;
+    private Data $helper;
 
-    /**
-     * @var SearchCriteriaBuilderFactory
-     */
-    private $searchCriteriaBuilderFactory;
+    private SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory;
 
     /**
      * Constructor.
@@ -61,7 +49,6 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
      * Return custom entities assigned to a product.
      *
      * @param ProductInterface $product Product.
-     *
      * @return CustomEntityInterface[]|null
      */
     public function getCustomEntities(ProductInterface $product): ?array
@@ -82,7 +69,6 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
      *
      * @param array $productIds     Product ids.
      * @param array $attributeCodes Attribute codes filter.
-     *
      * @return mixed
      */
     public function getCustomEntitiesByProductIds(array $productIds, array $attributeCodes = [])
@@ -115,8 +101,6 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
      * Persists custom entities product links.
      *
      * @param ProductInterface $product Product.
-     *
-     * @return ProductInterface|null
      */
     public function saveCustomEntities(ProductInterface $product): ?ProductInterface
     {

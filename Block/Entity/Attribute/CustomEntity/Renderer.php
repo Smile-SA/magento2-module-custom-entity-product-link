@@ -17,8 +17,6 @@ class Renderer extends Template
 {
     /**
      * Return template name.
-     *
-     * @return string
      */
     public function getTemplate(): string
     {

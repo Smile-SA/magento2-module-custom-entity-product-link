@@ -12,10 +12,7 @@ use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface
  */
 class SaveHandler implements ExtensionInterface
 {
-    /**
-     * @var CustomEntityProductLinkManagementInterface
-     */
-    private $customEntityLinkManager;
+    private CustomEntityProductLinkManagementInterface $customEntityLinkManager;
 
     /**
      * Constructor.
@@ -30,6 +27,7 @@ class SaveHandler implements ExtensionInterface
 
     /**
      * {@inheritDoc}
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function execute($entity, $arguments = [])

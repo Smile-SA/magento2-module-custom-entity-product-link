@@ -14,13 +14,10 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class CustomCollection extends Collection
 {
-
     /**
      * This method has been rewritten with the purpose of removing all smile custom entities from the attribute
      * collection. This enables the product grid search to create the correct sql request in the method
      * _getSearchEntityIdsSql
-     *
-     * @return AbstractDb
      */
     protected function _getAttributesCollection(): AbstractDb
     {
@@ -44,10 +41,8 @@ class CustomCollection extends Collection
      *
      * @param mixed $query Query
      * @param bool  $searchOnlyInCurrentStore Search only in current store or in all stores
-     *
-     * @return string
      */
-    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true)
+    protected function _getSearchEntityIdsSql($query, bool $searchOnlyInCurrentStore = true): string
     {
         $sql = parent::_getSearchEntityIdsSql($query, $searchOnlyInCurrentStore);
 
@@ -62,7 +57,6 @@ class CustomCollection extends Collection
      * table with smile_custom_entity_varchar and catalog_product_entity tables
      *
      * @param mixed $query Query
-     *
      * @return array|null
      * @throws LocalizedException
      */
@@ -88,7 +82,7 @@ class CustomCollection extends Collection
                 'cpcel.product_id = cpe.entity_id',
                 []
             )->joinLeft(
-                ['scev' =>'smile_custom_entity_varchar'],
+                ['scev' => 'smile_custom_entity_varchar'],
                 'cpcel.custom_entity_id = scev.entity_id',
                 []
             )->where(

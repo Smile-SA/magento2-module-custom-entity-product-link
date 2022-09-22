@@ -17,8 +17,6 @@ class CustomEntityAttributeSaveBeforeObserver implements ObserverInterface
      * Add frontend model for smile custom entity attribute.
      *
      * @param Observer $observer Observer.
-     *
-     * @return void
      */
     public function execute(Observer $observer): void
     {

@@ -13,10 +13,7 @@ use Smile\CustomEntityProductLink\Helper\Data;
  */
 class ProductPlugin
 {
-    /**
-     * @var Data
-     */
-    private $helper;
+    private Data $helper;
 
     /**
      * ProductPlugin constructor.
@@ -33,7 +30,6 @@ class ProductPlugin
      *
      * @param Product $source     Product model.
      * @param array   $identities Identities.
-     *
      * @return array|null
      */
     public function afterGetIdentities(Product $source, array $identities): ?array
@@ -46,7 +42,7 @@ class ProductPlugin
                 continue;
             }
             foreach ($source->getData($attributeCode) as $customEntityId) {
-                $identities[] = CustomEntity::CACHE_TAG . '_' .$customEntityId;
+                $identities[] = CustomEntity::CACHE_TAG . '_' . $customEntityId;
             }
         }
 

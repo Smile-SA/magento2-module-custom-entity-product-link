@@ -17,15 +17,9 @@ use Zend\Db\Sql\ExpressionFactory;
  */
 class CustomEntity extends AbstractAttributeData
 {
-    /**
-     * @var CollectionFactory
-     */
-    private $collectionFactory;
+    private CollectionFactory $collectionFactory;
 
-    /**
-     * @var ExpressionFactory
-     */
-    private $expressionFactory;
+    private ExpressionFactory $expressionFactory;
 
     /**
      * CustomEntity constructor.
@@ -43,7 +37,7 @@ class CustomEntity extends AbstractAttributeData
         MetadataPool $metadataPool,
         CollectionFactory $collectionFactory,
         ExpressionFactory $expressionFactory,
-        string $entityType = null
+        ?string $entityType = null
     ) {
         parent::__construct($resource, $storeManager, $metadataPool, $entityType);
         $this->collectionFactory = $collectionFactory;
@@ -56,7 +50,6 @@ class CustomEntity extends AbstractAttributeData
      * @param int|string   $storeId      Store id.
      * @param array $entityIds    Entity ids.
      * @param array $attributeIds Attribute ids.
-     *
      * @return array
      */
     public function loadCustomEntity($storeId, array $entityIds, array $attributeIds): array
@@ -71,27 +64,27 @@ class CustomEntity extends AbstractAttributeData
         foreach ($this->getCustomEntityAttributes() as $attribute) {
             $attributeCode = $attribute->getAttributeCode();
             $joinStoreValuesConditionClauses = [
-                't_default_'.$attributeCode.'.entity_id = t_store_'.$attributeCode.'.entity_id',
-                't_default_'.$attributeCode.'.attribute_id = t_store_'.$attributeCode.'.attribute_id',
-                't_store_'.$attributeCode.'.store_id= ?',
+                't_default_' . $attributeCode . '.entity_id = t_store_' . $attributeCode . '.entity_id',
+                't_default_' . $attributeCode . '.attribute_id = t_store_' . $attributeCode . '.attribute_id',
+                't_store_' . $attributeCode . '.store_id= ?',
             ];
             $joinStoreValuesCondition = $this->connection->quoteInto(
                 implode(' AND ', $joinStoreValuesConditionClauses),
                 $storeId
             );
             $columnValueExpression = $this->expressionFactory->create(
-                ['expression' => 'COALESCE(t_store_'.$attributeCode.'.value, t_default_'.$attributeCode.'.value)']
+                ['expression' => 'COALESCE(t_store_' . $attributeCode . '.value, t_default_' . $attributeCode . '.value)']
             );
 
             $select
                 ->joinInner(
-                    ['t_default_'.$attributeCode => $attribute->getBackendTable()],
-                    'custom_entity.custom_entity_id = t_default_'.$attributeCode.'.entity_id',
+                    ['t_default_' . $attributeCode => $attribute->getBackendTable()],
+                    'custom_entity.custom_entity_id = t_default_' . $attributeCode . '.entity_id',
                     []
                 )
-                ->joinLeft(['t_store_'.$attributeCode => $attribute->getBackendTable()], $joinStoreValuesCondition, [])
-                ->where('t_default_'.$attributeCode.'.store_id=?', 0)
-                ->where('t_default_'.$attributeCode.'.attribute_id=?', $attribute->getAttributeId())
+                ->joinLeft(['t_store_' . $attributeCode => $attribute->getBackendTable()], $joinStoreValuesCondition, [])
+                ->where('t_default_' . $attributeCode . '.store_id=?', 0)
+                ->where('t_default_' . $attributeCode . '.attribute_id=?', $attribute->getAttributeId())
                 ->columns([$attributeCode => $columnValueExpression->getExpression()]);
         }
 

@@ -11,9 +11,6 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
  */
 class CustomEntityProductLinkManagement extends AbstractDb
 {
-    /**
-     * @var string
-     */
     const RELATION_TABLE_NAME = 'catalog_product_custom_entity_link';
 
     /**
@@ -28,7 +25,6 @@ class CustomEntityProductLinkManagement extends AbstractDb
      * Get custom entity data.
      *
      * @param int|string $productId Product id
-     *
      * @return array|null
      */
     public function loadCustomEntityData($productId): ?array
@@ -41,7 +37,6 @@ class CustomEntityProductLinkManagement extends AbstractDb
      *
      * @param array $productIds Product Ids
      * @param array $attributeCodes Attribute codes filter.
-     *
      * @return array|null
      */
     public function loadCustomEntityDataByProductIds(array $productIds, array $attributeCodes = []): ?array
@@ -62,8 +57,6 @@ class CustomEntityProductLinkManagement extends AbstractDb
      * @param int|string $productId Product id.
      * @param int|string $attributeId Attribute id.
      * @param array $entityIds Linked entities ids.
-     *
-     * @return CustomEntityProductLinkManagement
      */
     public function saveLinks($productId, $attributeId, array $entityIds): CustomEntityProductLinkManagement
     {

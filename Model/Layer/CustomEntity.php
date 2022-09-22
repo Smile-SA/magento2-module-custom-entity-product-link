@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model\Layer;
 
-use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
+use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Model\Layer\ContextInterface;
 use Magento\Catalog\Model\Layer\StateFactory;
-use Magento\Catalog\Model\ResourceModel;
 use Magento\Catalog\Model\ResourceModel\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Attribute\CollectionFactory as AttributeCollectionFactory;
 use Magento\Framework\Registry;

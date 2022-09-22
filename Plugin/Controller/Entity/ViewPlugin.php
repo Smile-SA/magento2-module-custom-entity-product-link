@@ -14,20 +14,11 @@ use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
  */
 class ViewPlugin
 {
-    /**
-     * @var Resolver
-     */
-    private $layerResolver;
+    private Resolver $layerResolver;
 
-    /**
-     * @var Registry
-     */
-    private $registry;
+    private Registry $registry;
 
-    /**
-     * @var ProductHelper
-     */
-    private $productHelper;
+    private ProductHelper $productHelper;
 
     /**
      * ViewPlugin constructor.
@@ -51,7 +42,6 @@ class ViewPlugin
      *
      * @param View $subject Custom entity view controller.
      * @param callable $proceed Callable method.
-     *
      * @return mixed
      * @SuppressWarnings(PHPMD.UnusedFormalParameters)
      */
@@ -70,8 +60,6 @@ class ViewPlugin
 
     /**
      * Return true if has filterable attribute for current custom entity.
-     *
-     * @return bool
      */
     private function hasFilterableAttribute(): bool
     {

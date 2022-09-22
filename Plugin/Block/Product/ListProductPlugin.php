@@ -18,7 +18,6 @@ class ListProductPlugin
      *
      * @param ListProduct $source List product block.
      * @param array $identities Identities
-     *
      * @return array|null
      */
     public function afterGetIdentities(ListProduct $source, array $identities): ?array
