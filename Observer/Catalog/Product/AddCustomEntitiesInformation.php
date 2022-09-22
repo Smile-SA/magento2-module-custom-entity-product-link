@@ -9,26 +9,26 @@ use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface as CustomEntityProductLinkManagementInterfaceAlias;
+use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
 
 /**
  * Add custom entities information on product collection.
  */
 class AddCustomEntitiesInformation implements ObserverInterface
 {
-    private CustomEntityProductLinkManagementInterfaceAlias $customEntityProductLinkManagement;
+    private CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement;
 
     private Config $catalogConfig;
 
     /**
      * AddCustomEntitiesInformation constructor.
      *
-     * @param CustomEntityProductLinkManagementInterfaceAlias $customEntityProductLinkManagement Custom entity product link management.
+     * @param CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement Custom entity product link.
      * @param Config $catalogConfig Catalog config.
      */
     public function __construct(
-        CustomEntityProductLinkManagementInterfaceAlias $customEntityProductLinkManagement,
-        Config                                          $catalogConfig
+        CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement,
+        Config $catalogConfig
     ) {
         $this->customEntityProductLinkManagement = $customEntityProductLinkManagement;
         $this->catalogConfig = $catalogConfig;

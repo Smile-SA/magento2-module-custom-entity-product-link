@@ -15,9 +15,9 @@ use Smile\ScopedEav\Api\Data\EntityInterface;
  */
 class EavPlugin
 {
-    const COMPONENT_NAME = 'Magento_Ui/js/form/element/ui-select';
+    private const COMPONENT_NAME = 'Magento_Ui/js/form/element/ui-select';
 
-    const ELEMENT_TEMPLATE = 'ui/grid/filters/elements/ui-select';
+    private const ELEMENT_TEMPLATE = 'ui/grid/filters/elements/ui-select';
 
     private ArrayManager $arrayManager;
 

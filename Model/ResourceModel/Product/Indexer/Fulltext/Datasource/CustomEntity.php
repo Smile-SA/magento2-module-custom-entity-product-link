@@ -73,7 +73,10 @@ class CustomEntity extends AbstractAttributeData
                 $storeId
             );
             $columnValueExpression = $this->expressionFactory->create(
-                ['expression' => 'COALESCE(t_store_' . $attributeCode . '.value, t_default_' . $attributeCode . '.value)']
+                [
+                    'expression' =>
+                        'COALESCE(t_store_' . $attributeCode . '.value, t_default_' . $attributeCode . '.value)',
+                ]
             );
 
             $select
@@ -82,7 +85,11 @@ class CustomEntity extends AbstractAttributeData
                     'custom_entity.custom_entity_id = t_default_' . $attributeCode . '.entity_id',
                     []
                 )
-                ->joinLeft(['t_store_' . $attributeCode => $attribute->getBackendTable()], $joinStoreValuesCondition, [])
+                ->joinLeft(
+                    ['t_store_' . $attributeCode => $attribute->getBackendTable()],
+                    $joinStoreValuesCondition,
+                    []
+                )
                 ->where('t_default_' . $attributeCode . '.store_id=?', 0)
                 ->where('t_default_' . $attributeCode . '.attribute_id=?', $attribute->getAttributeId())
                 ->columns([$attributeCode => $columnValueExpression->getExpression()]);
