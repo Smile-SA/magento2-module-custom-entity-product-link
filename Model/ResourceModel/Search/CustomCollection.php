@@ -36,8 +36,7 @@ class CustomCollection extends Collection
     }
 
     /**
-     * We have extend this method in order to add the smile custom entities sql request and therefore this makes the
-     * search on the smile_custom_entity_varchar work correctly
+     * Add the smile custom entities sql request
      *
      * @param mixed $query Query
      * @param bool  $searchOnlyInCurrentStore Search only in current store or in all stores
@@ -53,8 +52,7 @@ class CustomCollection extends Collection
     }
 
     /**
-     * This method has the purpose of creating an sql request correctly linking the catalog_product_custom_entity_link
-     * table with smile_custom_entity_varchar and catalog_product_entity tables
+     * Linking the catalog_product_custom_entity_link with smile_custom_entity_varchar and catalog_product_entity tables
      *
      * @param mixed $query Query
      * @return array|null
@@ -74,6 +72,7 @@ class CustomCollection extends Collection
         }
 
         if ($smileCustomEntityAttributeIds) {
+            $selects = [];
             $selects[] = $this->getConnection()->select()->from(
                 ['cpe' => 'catalog_product_entity'],
                 $this->getEntity()->getLinkField()

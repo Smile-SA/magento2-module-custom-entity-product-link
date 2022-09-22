@@ -26,8 +26,7 @@ class SaveHandler implements ExtensionInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
+     * @inheritDoc
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function execute($entity, $arguments = [])

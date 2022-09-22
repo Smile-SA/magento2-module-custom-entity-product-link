@@ -26,6 +26,7 @@ class ViewPlugin
         if ($customEntities) {
             /** @var CustomEntityInterface $customEntity */
             foreach ($customEntities as $customEntity) {
+                // @codingStandardsIgnoreLine
                 $identities = array_merge($identities, $customEntity->getIdentities());
             }
         }

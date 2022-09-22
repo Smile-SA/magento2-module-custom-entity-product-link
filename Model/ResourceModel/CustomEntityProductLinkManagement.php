@@ -11,15 +11,7 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
  */
 class CustomEntityProductLinkManagement extends AbstractDb
 {
-    const RELATION_TABLE_NAME = 'catalog_product_custom_entity_link';
-
-    /**
-     * {@inheritDoc}
-     */
-    public function _construct()
-    {
-        return;
-    }
+    public const RELATION_TABLE_NAME = 'catalog_product_custom_entity_link';
 
     /**
      * Get custom entity data.
@@ -76,7 +68,11 @@ class CustomEntityProductLinkManagement extends AbstractDb
         }
 
         if (!empty($insertData)) {
-            $this->getConnection()->insertArray($table, ['product_id', 'attribute_id', 'custom_entity_id'], $insertData);
+            $this->getConnection()->insertArray(
+                $table,
+                ['product_id', 'attribute_id', 'custom_entity_id'],
+                $insertData
+            );
         }
 
         return $this;

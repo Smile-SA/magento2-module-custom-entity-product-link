@@ -12,10 +12,10 @@ $customEntity = $block->getCustomEntity();
 <a href="<?= $escaper->escapeUrl($block->getUrl($customEntity->getUrlPath())); ?>">
     <?php if ($customEntity->getImage()): ?>
     <img src="<?= $escaper->escapeUrl($customEntity->getImageUrl('image')) ?>"
-         alt="<?= $customEntity->getName(); ?>"
+         alt="<?= $escaper->escapeHtml($customEntity->getName()); ?>"
          width="50"
          height="50" />
     <?php else: ?>
-        <?= $customEntity->getName(); ?>
+        <?= $escaper->escapeHtml($customEntity->getName()); ?>
     <?php endif;?>
 </a>

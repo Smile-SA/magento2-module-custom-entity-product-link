@@ -28,8 +28,7 @@ class InstallSchema implements InstallSchemaInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
+     * @inheritdoc
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
@@ -82,14 +81,24 @@ class InstallSchema implements InstallSchemaInterface
                 'product_id'
             )
             ->addForeignKey(
-                $setup->getFkName('catalog_product_custom_entity_link', 'attribute_id', 'eav_attribute', 'attribute_id'),
+                $setup->getFkName(
+                    'catalog_product_custom_entity_link',
+                    'attribute_id',
+                    'eav_attribute',
+                    'attribute_id'
+                ),
                 'attribute_id',
                 $setup->getTable('eav_attribute'),
                 'attribute_id',
                 Table::ACTION_CASCADE
             )
             ->addForeignKey(
-                $setup->getFkName('catalog_product_custom_entity_link', 'product_id', 'catalog_product_entity', 'entity_id'),
+                $setup->getFkName(
+                    'catalog_product_custom_entity_link',
+                    'product_id',
+                    'catalog_product_entity',
+                    'entity_id'
+                ),
                 'product_id',
                 $setup->getTable('catalog_product_entity'),
                 'entity_id',
