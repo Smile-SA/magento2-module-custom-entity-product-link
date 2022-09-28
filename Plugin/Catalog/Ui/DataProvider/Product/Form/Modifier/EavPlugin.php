@@ -38,11 +38,11 @@ class EavPlugin
     /**
      * Fix custom entity field meta.
      *
-     * @param EavModifier               $subject   Object.
-     * @param callable                  $proceed   Original method.
+     * @param EavModifier $subject Object.
+     * @param callable $proceed Original method.
      * @param ProductAttributeInterface $attribute Attribute.
-     * @param string                    $groupCode Group code.
-     * @param int                       $sortOrder Sort order.
+     * @param string $groupCode Group code.
+     * @param int $sortOrder Sort order.
      * @return array|null
      */
     public function aroundSetupAttributeMeta(
@@ -77,9 +77,9 @@ class EavPlugin
      * List of custom entities.
      *
      * @param ProductAttributeInterface $attribute Attribute.
-     * @return array|null
+     * @return array
      */
-    private function getOptions(ProductAttributeInterface $attribute): ?array
+    private function getOptions(ProductAttributeInterface $attribute): array
     {
         $attributeSetId = $attribute->getCustomEntityAttributeSetId();
 

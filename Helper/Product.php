@@ -46,12 +46,14 @@ class Product extends AbstractHelper
     public function getCustomEntities(ProductInterface $product, string $attributeCode): array
     {
         $result = [];
-        $customEntities = $product->getExtensionAttributes()->getCustomEntities() ?? [];
-        foreach ($customEntities as $customEntity) {
-            if ($customEntity->getProductAttributeCode() !== $attributeCode || !$customEntity->getIsActive()) {
-                continue;
+        $customEntities = $product->getExtensionAttributes()->getCustomEntities();
+        if ($customEntities) {
+            foreach ($customEntities as $customEntity) {
+                if ($customEntity->getProductAttributeCode() !== $attributeCode || !$customEntity->getIsActive()) {
+                    continue;
+                }
+                $result[] = $customEntity;
             }
-            $result[] = $customEntity;
         }
 
         return $result;

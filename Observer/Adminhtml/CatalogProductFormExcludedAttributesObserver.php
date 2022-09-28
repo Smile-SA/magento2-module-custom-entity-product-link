@@ -44,9 +44,9 @@ class CatalogProductFormExcludedAttributesObserver implements ObserverInterface
     /**
      * Return attribute codes.
      *
-     * @return array|null
+     * @return array
      */
-    private function getCustomEntityAttributeCodes(): ?array
+    private function getCustomEntityAttributeCodes(): array
     {
         return array_map(function ($attribute) {
             return $attribute->getAttributeCode();

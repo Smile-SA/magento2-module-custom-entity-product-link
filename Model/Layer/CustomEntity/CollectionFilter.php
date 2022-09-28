@@ -9,11 +9,9 @@ use Magento\Catalog\Model\Config;
 use Magento\Catalog\Model\Layer\Category\CollectionFilter as BaseCollectionFilter;
 use Magento\Catalog\Model\Layer\CollectionFilterInterface;
 use Magento\Catalog\Model\Product\Visibility;
-use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Framework\Registry;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
-use Smile\ElasticsuiteCore\Helper\Mapping;
 use Smile\ElasticsuiteCore\Search\Request\Query\QueryFactory;
 use Smile\ElasticsuiteCore\Search\Request\QueryInterface;
 
@@ -35,7 +33,7 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
      * @param Config $catalogConfig Catalog config.
      * @param ProductHelper $productHelper Product helper.
      * @param Registry $registry Registry.
-     * @param Mapping $mappingHelper Mapping helper.
+     * @param QueryFactory $queryFactory Query factory.
      */
     public function __construct(
         Visibility $productVisibility,
@@ -51,12 +49,9 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
     }
 
     /**
-     * Filter product collection.
-     *
-     * @param Collection $collection Collection.
-     * @param Category $category   Category.
+     * @inheritdoc
      */
-    public function filter(Collection $collection, Category $category): void
+    public function filter($collection, Category $category): void
     {
         parent::filter($collection, $category);
         $currentCustomEntity = $this->getCurrentCustomEntity();

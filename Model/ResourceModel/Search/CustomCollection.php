@@ -36,12 +36,9 @@ class CustomCollection extends Collection
     }
 
     /**
-     * Add the smile custom entities sql request
-     *
-     * @param mixed $query Query
-     * @param bool  $searchOnlyInCurrentStore Search only in current store or in all stores
+     * @inheritdoc
      */
-    protected function _getSearchEntityIdsSql($query, bool $searchOnlyInCurrentStore = true): string
+    protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true)
     {
         $sql = parent::_getSearchEntityIdsSql($query, $searchOnlyInCurrentStore);
 
@@ -71,8 +68,8 @@ class CustomCollection extends Collection
             $smileCustomEntityAttributeIds[] = $attribute->getId();
         }
 
+        $selects = [];
         if ($smileCustomEntityAttributeIds) {
-            $selects = [];
             $selects[] = $this->getConnection()->select()->from(
                 ['cpe' => 'catalog_product_entity'],
                 $this->getEntity()->getLinkField()
