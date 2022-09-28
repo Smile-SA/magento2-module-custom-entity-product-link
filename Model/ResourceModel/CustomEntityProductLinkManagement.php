@@ -9,7 +9,7 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 /**
  * Custom entity product link management resource model.
  */
-class CustomEntityProductLinkManagement extends AbstractDb
+abstract class CustomEntityProductLinkManagement extends AbstractDb
 {
     public const RELATION_TABLE_NAME = 'catalog_product_custom_entity_link';
 

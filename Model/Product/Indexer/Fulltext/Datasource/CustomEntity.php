@@ -58,13 +58,9 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     }
 
     /**
-     * Append data to a list of documents.
-     *
-     * @param int $storeId Store id.
-     * @param array   $indexData List of documents to get enriched by the datasources.
-     * @return array
+     * @inheritdoc
      */
-    public function addData(int $storeId, array $indexData): array
+    public function addData($storeId, array $indexData): array
     {
         $productIds   = array_keys($indexData);
         $customEntitiesData = $this->loadCustomEntityRowData($storeId, $productIds, array_keys($this->attributeById));
@@ -150,7 +146,7 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
         $fieldConfig['is_used_in_spellcheck'] = false;
         $fieldConfig['is_searchable'] = false;
 
-        $fieldType    = $this->attributeHelper->getFieldType($attribute);
+        $fieldType = $this->attributeHelper->getFieldType($attribute);
         $fieldOptions = ['name' => $fieldName, 'type' => $fieldType, 'fieldConfig' => $fieldConfig];
 
         $this->fields[$fieldName] = $this->fieldFactory->create($fieldOptions);

@@ -6,7 +6,6 @@ namespace Smile\CustomEntityProductLink\Plugin\Block\Product;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Block\Product\ListProduct;
-use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 
 /**
  * List product block plugin.
@@ -24,11 +23,13 @@ class ListProductPlugin
     {
         /** @var ProductInterface $product */
         foreach ($source->getLoadedProductCollection() as $product) {
-            $customEntities = $product->getExtensionAttributes()->getCustomEntities() ?? [];
-            /** @var CustomEntityInterface $customEntity */
-            foreach ($customEntities as $customEntity) {
-                // @codingStandardsIgnoreLine
-                $identities = array_merge($identities, $customEntity->getIdentities());
+            $customEntities = $product->getExtensionAttributes()->getCustomEntities();
+            $identities = [];
+            if ($customEntities) {
+                foreach ($customEntities as $customEntity) {
+                    // @codingStandardsIgnoreLine
+                    $identities = array_merge($identities, $customEntity->getIdentities());
+                }
             }
         }
 

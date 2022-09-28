@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Plugin\Helper;
 
 use Magento\Eav\Model\Entity\Attribute\AttributeInterface;
+use Smile\CustomEntity\Model\CustomEntity;
 use Smile\ElasticsuiteCatalog\Helper\ProductAttribute;
 
 /**
@@ -21,7 +22,7 @@ class AbstractAttributePlugin
      */
     public function afterGetFilterField(ProductAttribute $source, string $field, AttributeInterface $attribute): ?string
     {
-        if ($attribute->getFrontendInput() == 'smile_custom_entity') {
+        if ($attribute->getFrontendInput() == CustomEntity::CACHE_TAG) {
             $field = $source->getOptionTextFieldName($field);
         }
 

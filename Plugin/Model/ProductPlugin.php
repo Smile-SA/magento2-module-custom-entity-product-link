@@ -28,8 +28,8 @@ class ProductPlugin
     /**
      * Append custom entity identities when update product attributes.
      *
-     * @param Product $source     Product model.
-     * @param array   $identities Identities.
+     * @param Product $source Product model.
+     * @param array $identities Identities.
      * @return array|null
      */
     public function afterGetIdentities(Product $source, array $identities): ?array

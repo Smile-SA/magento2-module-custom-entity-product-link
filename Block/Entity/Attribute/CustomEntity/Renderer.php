@@ -20,6 +20,6 @@ class Renderer extends Template
      */
     public function getTemplate(): string
     {
-        return parent::getTemplate() ?? 'Smile_CustomEntityProductLink::entity/attribute/custom_entity/renderer.phtml';
+        return 'Smile_CustomEntityProductLink::entity/attribute/custom_entity/renderer.phtml';
     }
 }
