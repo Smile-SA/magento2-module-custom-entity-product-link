@@ -1,5 +1,0 @@
-phpcs:
-  standard: phpcs.xml
-  ignoreWarnings: true
-phpmd:
-  standard: phpmd.xml
