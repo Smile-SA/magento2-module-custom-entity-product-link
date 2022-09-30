@@ -12,6 +12,7 @@ use Magento\Catalog\Model\Product\Visibility;
 use Magento\Framework\Registry;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
+use Smile\ElasticsuiteCatalog\Model\ResourceModel\Product\Fulltext\Collection;
 use Smile\ElasticsuiteCore\Search\Request\Query\QueryFactory;
 use Smile\ElasticsuiteCore\Search\Request\QueryInterface;
 
@@ -61,6 +62,7 @@ class CollectionFilter extends BaseCollectionFilter implements CollectionFilterI
                 ['field' => $this->getAttributeCode(), 'value' => $currentCustomEntity->getId()]
             );
 
+            /** @var Collection $collection */
             $collection->addQueryFilter($query);
         }
     }

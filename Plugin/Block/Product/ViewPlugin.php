@@ -22,6 +22,7 @@ class ViewPlugin
     public function afterGetIdentities(View $source, array $identities): ?array
     {
         // @todo Optimization: only custom entities if is visible on front
+        // @phpstan-ignore-next-line
         $customEntities = $source->getProduct()->getExtensionAttributes()->getCustomEntities();
         if ($customEntities) {
             /** @var CustomEntityInterface $customEntity */

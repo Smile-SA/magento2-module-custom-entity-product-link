@@ -15,37 +15,44 @@ use Magento\Framework\Exception\LocalizedException;
 class CustomCollection extends Collection
 {
     /**
-     * This method has been rewritten with the purpose of removing all smile custom entities from the attribute
-     * collection. This enables the product grid search to create the correct sql request in the method
-     * _getSearchEntityIdsSql
+     * @inheritdoc
      */
-    protected function _getAttributesCollection(): AbstractDb
+    protected function _getAttributesCollection()
     {
+        /** @var AbstractDb $attributesCollection */
+        $attributesCollection = $this->_attributesCollection;
+
         if (!$this->_attributesCollection) {
-            $this->_attributesCollection = $this->_attributeCollectionFactory
+            /** @var array $attributesCollection */
+            $attributesCollection = $this->_attributeCollectionFactory
                 ->create()
                 ->addSearchableAttributeFilter()
                 ->addFieldToFilter('frontend_input', ['neq' => 'smile_custom_entity'])
                 ->load();
 
+            $this->_attributesCollection = $attributesCollection;
+
             foreach ($this->_attributesCollection as $attribute) {
                 $attribute->setEntity($this->getEntity());
             }
         }
-        return $this->_attributesCollection;
+
+        return $attributesCollection;
     }
 
     /**
      * @inheritdoc
+     * @SuppressWarnings(PHPMD)
      */
     protected function _getSearchEntityIdsSql($query, $searchOnlyInCurrentStore = true)
     {
+        /** @var Select $sql */
         $sql = parent::_getSearchEntityIdsSql($query, $searchOnlyInCurrentStore);
 
         $selects = $this->_getSmileCustomSql($query);
         $sql = $sql->union($selects, Select::SQL_UNION_ALL);
 
-        return $sql;
+        return (string) $sql;
     }
 
     /**
@@ -54,6 +61,7 @@ class CustomCollection extends Collection
      * @param mixed $query Query
      * @return array|null
      * @throws LocalizedException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function _getSmileCustomSql($query): ?array
     {

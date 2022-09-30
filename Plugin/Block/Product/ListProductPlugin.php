@@ -23,6 +23,7 @@ class ListProductPlugin
     {
         /** @var ProductInterface $product */
         foreach ($source->getLoadedProductCollection() as $product) {
+            // @phpstan-ignore-next-line
             $customEntities = $product->getExtensionAttributes()->getCustomEntities();
             $identities = [];
             if ($customEntities) {

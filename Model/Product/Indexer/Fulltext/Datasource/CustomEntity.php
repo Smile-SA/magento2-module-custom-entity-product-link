@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model\Product\Indexer\Fulltext\Datasource;
 
 use Magento\Eav\Api\Data\AttributeInterface;
+use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
+use Magento\Eav\Model\Entity\Attribute\AttributeInterface as EntityAttributeInterface;
 use Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\CustomEntity as ResourceModel;
 use Smile\ElasticsuiteCatalog\Helper\AbstractAttribute as AttributeHelper;
 use Smile\ElasticsuiteCore\Api\Index\DatasourceInterface;
@@ -135,6 +137,9 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
     private function addField(AttributeInterface $attribute): self
     {
         $fieldName = $attribute->getAttributeCode();
+
+        /** @var AttributeHelper $fieldConfig */
+        /** @var EntityAttributeInterface $attribute */
         $fieldConfig = $this->attributeHelper->getMappingFieldOptions($attribute);
 
         $optionFieldName = $this->attributeHelper->getOptionTextFieldName($fieldName);
@@ -146,7 +151,8 @@ class CustomEntity implements DatasourceInterface, DynamicFieldProviderInterface
         $fieldConfig['is_used_in_spellcheck'] = false;
         $fieldConfig['is_searchable'] = false;
 
-        $fieldType = $this->attributeHelper->getFieldType($attribute);
+        /** @var AbstractAttribute $attribute */
+        $fieldType = $this->attributeHelper->getFieldType($attribute->getAttributeId());
         $fieldOptions = ['name' => $fieldName, 'type' => $fieldType, 'fieldConfig' => $fieldConfig];
 
         $this->fields[$fieldName] = $this->fieldFactory->create($fieldOptions);
