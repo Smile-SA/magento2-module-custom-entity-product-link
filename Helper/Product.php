@@ -46,6 +46,7 @@ class Product extends AbstractHelper
     public function getCustomEntities(ProductInterface $product, string $attributeCode): array
     {
         $result = [];
+        // @phpstan-ignore-next-line
         $customEntities = $product->getExtensionAttributes()->getCustomEntities();
         if ($customEntities) {
             foreach ($customEntities as $customEntity) {

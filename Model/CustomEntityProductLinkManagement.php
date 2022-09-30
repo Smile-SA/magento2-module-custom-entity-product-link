@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model;
 
 use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Catalog\Model\AbstractModel\Stub;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
+use Magento\Framework\DataObject;
+use Magento\Framework\Model\AbstractModel;
 use Smile\CustomEntity\Api\CustomEntityRepositoryInterface;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
@@ -53,10 +56,12 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
      */
     public function getCustomEntities(ProductInterface $product): ?array
     {
+        /** @var CustomEntityInterface[] $entities */
         $entities = [];
 
         foreach ($this->resourceModel->loadCustomEntityData($product->getId()) as $linkData) {
             // @todo use collection
+            /** @var Stub $product */
             $customEntity = $this->customEntityRepository->get($linkData['custom_entity_id'], $product->getStoreId());
             $entities[$linkData['attribute_code']][] = $customEntity;
         }
@@ -105,12 +110,14 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
     public function saveCustomEntities(ProductInterface $product): ?ProductInterface
     {
         foreach ($this->helper->getCustomEntityProductAttributes() as $attribute) {
+            /** @var DataObject $product */
             $entityIds = $product->getData($attribute->getAttributeCode());
 
             if (!$entityIds) {
                 $entityIds = [];
             }
 
+            /** @var AbstractModel $attribute */
             $this->resourceModel->saveLinks($product->getId(), $attribute->getId(), $entityIds);
         }
 

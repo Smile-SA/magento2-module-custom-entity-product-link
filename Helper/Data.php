@@ -53,6 +53,8 @@ class Data extends AbstractHelper
         $attributeCollection = $attributeCollectionFactory->create();
         $attributeCollection->addFieldToFilter(ProductAttributeInterface::FRONTEND_INPUT, 'smile_custom_entity');
 
-        $this->customEntityProductAttributes = $attributeCollection->getItems();
+        /** @var ProductAttributeInterface[] $attributeCollectionItems */
+        $attributeCollectionItems = $attributeCollection->getItems();
+        $this->customEntityProductAttributes = $attributeCollectionItems;
     }
 }

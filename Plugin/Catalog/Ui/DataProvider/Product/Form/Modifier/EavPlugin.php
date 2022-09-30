@@ -6,6 +6,7 @@ namespace Smile\CustomEntityProductLink\Plugin\Catalog\Ui\DataProvider\Product\F
 
 use Magento\Catalog\Api\Data\ProductAttributeInterface;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav as EavModifier;
+use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
 use Magento\Framework\Stdlib\ArrayManager;
 use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as EntityCollectionFactory;
 use Smile\ScopedEav\Api\Data\EntityInterface;
@@ -81,6 +82,7 @@ class EavPlugin
      */
     private function getOptions(ProductAttributeInterface $attribute): array
     {
+        /** @var AbstractAttribute $attribute */
         $attributeSetId = $attribute->getCustomEntityAttributeSetId();
 
         /**
