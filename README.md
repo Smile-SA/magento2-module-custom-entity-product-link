@@ -58,12 +58,4 @@ All notable changes are recorded in this [changelog](CHANGELOG.md).
 
 ## Standards & Code Quality
 
-Built on top of Magento2, our module respects all its prerequisites and code quality rules.
-
-You can also find our PHPCS Standards and PHPMD rulesets in the module directory.
-
-The module is also continuously tested on :
-
-Tools                           | Results
-------------------------------- |------------
-Travis                          | [![Build Status](https://travis-ci.org/Smile-SA/magento2-module-custom-entity-product-link.svg?branch=master)](https://travis-ci.org/Smile-SA/magento2-module-custom-entity-product-link)
+[Smile Lab Quality Suite (Magento)](https://github.com/Smile-SA/magento2-smilelab-quality-suite/) provides coding standards / rulesets that can be used on Magento projects.
