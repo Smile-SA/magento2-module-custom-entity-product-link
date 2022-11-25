@@ -10,7 +10,6 @@ use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Store\Model\StoreManagerInterface;
 use Smile\CustomEntity\Model\ResourceModel\CustomEntity\Attribute\CollectionFactory;
 use Smile\ElasticsuiteCatalog\Model\ResourceModel\Eav\Indexer\Fulltext\Datasource\AbstractAttributeData;
-use Zend\Db\Sql\ExpressionFactory;
 
 /**
  * Custom entity datasource resource model.
@@ -28,7 +27,6 @@ class CustomEntity extends AbstractAttributeData
      * @param StoreManagerInterface $storeManager Store manager.
      * @param MetadataPool $metadataPool Metadata pool.
      * @param CollectionFactory $collectionFactory Custom entity attribute collection factory.
-     * @param ExpressionFactory $expressionFactory Zend db expression factory.
      * @param string|null $entityType Entity type.
      */
     public function __construct(
@@ -36,12 +34,10 @@ class CustomEntity extends AbstractAttributeData
         StoreManagerInterface $storeManager,
         MetadataPool $metadataPool,
         CollectionFactory $collectionFactory,
-        ExpressionFactory $expressionFactory,
         ?string $entityType = null
     ) {
         parent::__construct($resource, $storeManager, $metadataPool, $entityType);
         $this->collectionFactory = $collectionFactory;
-        $this->expressionFactory = $expressionFactory;
     }
 
     /**
