@@ -84,7 +84,7 @@ class CustomEntity extends AbstractAttributeData
                 )
                 ->where('t_default_' . $attributeCode . '.store_id=?', 0)
                 ->where('t_default_' . $attributeCode . '.attribute_id=?', $attribute->getAttributeId())
-                ->columns([$attributeCode => $columnValueExpression->getExpression()]);
+                ->columns([$attributeCode => $columnValueExpression->__toString()]);
         }
 
         // @codingStandardsIgnoreLine (MEQP1.Performance.InefficientMethods.FoundFetchAll)
