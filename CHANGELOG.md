@@ -2,10 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.3.8] - 2022-11-25
+## [1.3.8] - 2022-12-02
 [1.3.8]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.3.7...1.3.8
 
-- Fix use ExpressionFactory
+- Fix Zend Db Expression
 
 ## [1.3.7] - 2022-11-21
 [1.3.7]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.3.6...1.3.7
