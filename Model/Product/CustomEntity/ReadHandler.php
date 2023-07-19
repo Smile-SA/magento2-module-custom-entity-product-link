@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model\Product\CustomEntity;
 
+use Magento\Framework\DataObject;
 use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
 
@@ -37,6 +38,7 @@ class ReadHandler implements ExtensionInterface
             $productCustomEntities = [];
 
             foreach ($customEntitiesByCode as $attributeCode => $customEntities) {
+                /** @var DataObject $customEntity */
                 foreach ($customEntities as $customEntity) {
                     $customEntity->setProductAttributeCode($attributeCode);
                     $attributeValues[$attributeCode][] = $customEntity->getId();

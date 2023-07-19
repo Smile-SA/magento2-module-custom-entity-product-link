@@ -22,7 +22,8 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "magento/composer-dependency-version-audit-plugin": true,
-            "magento/magento-composer-installer": false
+            "magento/magento-composer-installer": false,
+            "php-http/discovery": true
         },
         "sort-packages": true
     },

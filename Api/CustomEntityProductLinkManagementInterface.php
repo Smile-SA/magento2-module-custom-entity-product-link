@@ -18,7 +18,7 @@ interface CustomEntityProductLinkManagementInterface
      * Return custom entities assigned to a product.
      *
      * @param ProductInterface $product Product.
-     * @return CustomEntityInterface[]|null
+     * @return CustomEntityInterface[][]|null
      */
     public function getCustomEntities(ProductInterface $product): ?array;
 
