@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model;
 
 use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Catalog\Model\AbstractModel\Stub;
+use Magento\Catalog\Model\Product;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Framework\DataObject;
@@ -21,11 +21,8 @@ use Smile\CustomEntityProductLink\Helper\Data;
 class CustomEntityProductLinkManagement implements CustomEntityProductLinkManagementInterface
 {
     private ResourceModel\CustomEntityProductLinkManagement $resourceModel;
-
     private CustomEntityRepositoryInterface $customEntityRepository;
-
     private Data $helper;
-
     private SearchCriteriaBuilderFactory $searchCriteriaBuilderFactory;
 
     /**
@@ -52,16 +49,16 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
      * Return custom entities assigned to a product.
      *
      * @param ProductInterface $product Product.
-     * @return CustomEntityInterface[]|null
+     * @return CustomEntityInterface[][]|null
      */
     public function getCustomEntities(ProductInterface $product): ?array
     {
-        /** @var CustomEntityInterface[] $entities */
+        /** @var CustomEntityInterface[][] $entities */
         $entities = [];
 
         foreach ($this->resourceModel->loadCustomEntityData($product->getId()) as $linkData) {
             // @todo use collection
-            /** @var Stub $product */
+            /** @var Product $product */
             $customEntity = $this->customEntityRepository->get($linkData['custom_entity_id'], $product->getStoreId());
             $entities[$linkData['attribute_code']][] = $customEntity;
         }

@@ -17,10 +17,8 @@ use Smile\CustomEntity\Model\CustomEntity\AttributeSet;
  */
 class AddFieldsToAttributeObserver implements ObserverInterface
 {
-    protected \Magento\Framework\Module\Manager $moduleManager;
-
+    protected Manager $moduleManager;
     private AttributeSet\Options $attributeSetOptions;
-
     private Registry $registry;
 
     /**

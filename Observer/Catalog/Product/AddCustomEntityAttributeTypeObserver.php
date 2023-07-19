@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Observer\Catalog\Product;
 
 use Magento\Framework\Event\Observer;
+use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Module\Manager;
 
 /**
  * Add smile_custom_entity to the available input types.
  */
-class AddCustomEntityAttributeTypeObserver implements \Magento\Framework\Event\ObserverInterface
+class AddCustomEntityAttributeTypeObserver implements ObserverInterface
 {
     protected Manager $moduleManager;
 

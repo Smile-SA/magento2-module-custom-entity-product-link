@@ -8,6 +8,7 @@ use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Layer\Category\FilterableAttributeList;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
+use Magento\Framework\DataObject;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 
 /**
@@ -46,10 +47,11 @@ class Product extends AbstractHelper
     public function getCustomEntities(ProductInterface $product, string $attributeCode): array
     {
         $result = [];
-        $customEntities = $product->getExtensionAttributes()->getCustomEntities();
+        /** @var DataObject $extensionAttributes */
+        $extensionAttributes = $product->getExtensionAttributes();
+        $customEntities = $extensionAttributes->getCustomEntities();
         if ($customEntities) {
             foreach ($customEntities as $customEntity) {
-                // @phpstan-ignore-next-line
                 if ($customEntity->getProductAttributeCode() !== $attributeCode || !$customEntity->getIsActive()) {
                     continue;
                 }
