@@ -9,6 +9,7 @@ use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as CustomEntityCollectionFactory;
 use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
 
 /**
@@ -17,8 +18,8 @@ use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface
 class AddCustomEntitiesInformation implements ObserverInterface
 {
     private CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement;
-
     private Config $catalogConfig;
+    private CustomEntityCollectionFactory $customEntityCollectionFactory;
 
     /**
      * AddCustomEntitiesInformation constructor.
@@ -28,10 +29,12 @@ class AddCustomEntitiesInformation implements ObserverInterface
      */
     public function __construct(
         CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement,
-        Config $catalogConfig
+        Config $catalogConfig,
+        CustomEntityCollectionFactory $customEntityCollectionFactory,
     ) {
         $this->customEntityProductLinkManagement = $customEntityProductLinkManagement;
         $this->catalogConfig = $catalogConfig;
+        $this->customEntityCollectionFactory = $customEntityCollectionFactory;
     }
 
     /**
@@ -50,29 +53,53 @@ class AddCustomEntitiesInformation implements ObserverInterface
             }
         ));
 
-        $customEntitiesByCode = $this->customEntityProductLinkManagement->getCustomEntitiesByProductIds(
-            $collection->getLoadedIds(),
-            $attributeCodes
-        );
-        foreach ($collection as $product) {
-            if (!array_key_exists($product->getId(), $customEntitiesByCode)) {
-                continue;
-            }
-            $attributeValues = [];
-            $productCustomEntities = [];
-            // @todo refactoring this (duplicate from readHandler)
-            foreach ($customEntitiesByCode[$product->getId()] as $attributeCode => $customEntities) {
-                foreach ($customEntities as $customEntity) {
-                    $customEntity->setProductAttributeCode($attributeCode);
-                    $attributeValues[$attributeCode][] = $customEntity->getId();
-                    $productCustomEntities[] = $customEntity;
+        if (!empty($attributeCodes)) {
+            $customEntityIds = [];
+            $productCustomEntityList = [];
+            foreach ($collection as $product) {
+                foreach ($attributeCodes as $attributeCode) {
+                    if (!$product->hasData($attributeCode)) {
+                        continue;
+                    }
+                    $productCustomEntityIds = explode(',', $product->getData($attributeCode));
+                    foreach ($productCustomEntityIds as $productCustomEntityId) {
+                        $productCustomEntityList[$product->getId()][$attributeCode][] = $productCustomEntityId;
+                    }
+                    $customEntityIds = array_merge($customEntityIds, $productCustomEntityIds);
                 }
             }
-            $product->addData($attributeValues);
+            $customEntityIds = array_unique($customEntityIds);
 
-            $entityExtension = $product->getExtensionAttributes();
-            $entityExtension->setCustomEntities($productCustomEntities);
-            $product->setExtensionAttributes($entityExtension);
+            if (!empty($customEntityIds)) {
+                $customEntityList = [];
+                $customEntityCollection = $this->customEntityCollectionFactory->create()
+                    ->addAttributeToSelect('*')
+                    ->addAttributeToFilter('entity_id', ['in' => $customEntityIds]);
+
+                foreach ($customEntityCollection->getItems() as $customEntity) {
+                    $customEntityList[$customEntity->getId()] = $customEntity;
+                }
+
+                foreach ($collection as $product) {
+                    if (array_key_exists($product->getId(), $productCustomEntityList)) {
+                        $attributeValues = [];
+                        $productCustomEntities = [];
+                        foreach ($productCustomEntityList[$product->getId()] as $attributeCode => $customEntityIds) {
+                            foreach ($customEntityIds as $customEntityId) {
+                                $customEntity = $customEntityList[$customEntityId];
+                                $customEntity->setProductAttributeCode($attributeCode);
+                                $attributeValues[$attributeCode][] = $customEntity->getId();
+                                $productCustomEntities[] = $customEntity;
+                            }
+                        }
+                        $product->addData($attributeValues);
+
+                        $entityExtension = $product->getExtensionAttributes();
+                        $entityExtension->setCustomEntities($productCustomEntities);
+                        $product->setExtensionAttributes($entityExtension);
+                    }
+                }
+            }
         }
     }
 }

@@ -41,7 +41,11 @@ class ProductPlugin
             if (!$source->hasData($attributeCode) || !$source->dataHasChangedFor($attributeCode)) {
                 continue;
             }
-            foreach ($source->getData($attributeCode) as $customEntityId) {
+            $customEntityIds = $source->getData($attributeCode);
+            if (is_string($customEntityIds)) {
+                $customEntityIds = explode(',', $customEntityIds);
+            }
+            foreach ($customEntityIds ?? [] as $customEntityId) {
                 $identities[] = CustomEntity::CACHE_TAG . '_' . $customEntityId;
             }
         }

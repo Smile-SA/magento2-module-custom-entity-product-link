@@ -21,21 +21,4 @@ interface CustomEntityProductLinkManagementInterface
      * @return CustomEntityInterface[][]|null
      */
     public function getCustomEntities(ProductInterface $product): ?array;
-
-    /**
-     * Return custom entities assigned to all product ids.
-     *
-     * @param array $productIds     Product ids.
-     * @param array $attributeCodes Attribute codes filter.
-     * @return mixed
-     */
-    public function getCustomEntitiesByProductIds(array $productIds, array $attributeCodes = []);
-
-    /**
-     * Persists custom entities product links.
-     *
-     * @param ProductInterface $product Product.
-     * @return ProductInterface|null
-     */
-    public function saveCustomEntities(ProductInterface $product): ?ProductInterface;
 }
