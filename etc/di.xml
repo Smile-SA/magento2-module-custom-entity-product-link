@@ -4,17 +4,6 @@
     <!-- Default implementation for API interfaces -->
     <preference for="Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface" type="Smile\CustomEntityProductLink\Model\CustomEntityProductLinkManagement" />
 
-    <!-- Datasources resolver -->
-    <type name="Smile\ElasticsuiteCore\Index\DataSourceResolver">
-        <arguments>
-            <argument name="datasources" xsi:type="array">
-                <item name="catalog_product" xsi:type="array">
-                    <item name="custom_entity" xsi:type="object">Smile\CustomEntityProductLink\Model\Product\Indexer\Fulltext\Datasource\CustomEntity</item>
-                </item>
-            </argument>
-        </arguments>
-    </type>
-
     <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
         <arguments>
             <argument name="extensionActions" xsi:type="array">
@@ -22,26 +11,16 @@
                     <item name="read" xsi:type="array">
                         <item name="customEntityReader" xsi:type="string">Smile\CustomEntityProductLink\Model\Product\CustomEntity\ReadHandler</item>
                     </item>
-                    <item name="create" xsi:type="array">
-                        <item name="customEntityCreator" xsi:type="string">Smile\CustomEntityProductLink\Model\Product\CustomEntity\SaveHandler</item>
-                    </item>
-                    <item name="update" xsi:type="array">
-                        <item name="customEntityUpdater" xsi:type="string">Smile\CustomEntityProductLink\Model\Product\CustomEntity\SaveHandler</item>
-                    </item>
                 </item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Smile\CustomEntityProductLink\Model\Product\Indexer\Fulltext\Datasource\CustomEntity">
-        <arguments>
-            <argument name="attributeHelper" xsi:type="object">Smile\ElasticsuiteCatalog\Helper\ProductAttribute</argument>
-            <argument name="resourceModel" xsi:type="object">Smile\CustomEntityProductLink\Model\ResourceModel\Product\Indexer\Fulltext\Datasource\CustomEntity</argument>
-        </arguments>
+    <type name="Magento\Rule\Model\Condition\Product\AbstractProduct">
+        <plugin name="custom_entity" type="Smile\CustomEntityProductLink\Plugin\Model\Condition\Product\AbstractProduct" sortOrder="1" />
     </type>
-
-    <type name="Smile\ElasticsuiteCatalog\Helper\AbstractAttribute">
-        <plugin name="Smile\CustomEntityProductLink\Plugin\Helper\AbstractAttributePlugin" type="Smile\CustomEntityProductLink\Plugin\Helper\AbstractAttributePlugin" sortOrder="10" />
+    <type name="Magento\Catalog\Model\ResourceModel\Eav\Attribute">
+        <plugin name="custom_entity_rule" type="Smile\CustomEntityProductLink\Plugin\Model\ResourceModel\Eav\Attribute" sortOrder="1" />
     </type>
 
     <type name="Magento\Catalog\Model\Layer\Resolver">
@@ -52,10 +31,4 @@
         </arguments>
     </type>
 
-    <preference for="Magento\Search\Model\SearchCollectionInterface" type="Smile\CustomEntityProductLink\Model\ResourceModel\Search\CustomCollection" />
-    <type name="Magento\CatalogSearch\Ui\DataProvider\Product\AddFulltextFilterToCollection">
-        <arguments>
-            <argument name="searchCollection" xsi:type="object">Smile\CustomEntityProductLink\Model\ResourceModel\Search\CustomCollection</argument>
-        </arguments>
-    </type>
 </config>
