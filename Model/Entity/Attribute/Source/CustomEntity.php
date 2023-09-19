@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model\Entity\Attribute\Source;
 
 use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
-use Magento\Framework\Exception\LocalizedException;
 use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as CustomEntityCollectionFactory;
 
 /**
@@ -21,8 +20,7 @@ class CustomEntity extends AbstractSource
     }
 
     /**
-     * {@inheritDoc}
-     * @throws LocalizedException
+     * Get all options
      */
     public function getAllOptions(): array
     {

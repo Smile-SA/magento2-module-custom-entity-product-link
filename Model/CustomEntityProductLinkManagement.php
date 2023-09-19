@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model;
 
-use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory as AttributeCollectionFactory;
-use Smile\CustomEntityProductLink\Helper\Data;
+use Magento\Catalog\Model\Product;
+use Magento\Framework\Exception\LocalizedException;
+use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as CustomEntityCollectionFactory;
 use Smile\CustomEntityProductLink\Api\CustomEntityProductLinkManagementInterface;
+use Smile\CustomEntityProductLink\Helper\Data;
 
 /**
  * Custom entity product link management implementation.
@@ -17,37 +18,29 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
 {
     private Data $helper;
     private CustomEntityCollectionFactory $customEntityCollectionFactory;
-    private AttributeCollectionFactory $attributeCollectionFactory;
-    private array $customEntityAttribute = [];
 
     /**
      * Constructor.
-     *
-     * @param Data $helper Custom entity helper.
-     * @param CustomEntityCollectionFactory $customEntityCollectionFactory
-     * @param AttributeCollectionFactory $attributeCollectionFactory
      */
     public function __construct(
         Data $helper,
-        CustomEntityCollectionFactory $customEntityCollectionFactory,
-        AttributeCollectionFactory $attributeCollectionFactory
+        CustomEntityCollectionFactory $customEntityCollectionFactory
     ) {
         $this->helper = $helper;
         $this->customEntityCollectionFactory = $customEntityCollectionFactory;
-        $this->attributeCollectionFactory = $attributeCollectionFactory;
     }
 
     /**
      * Return custom entities assigned to a product.
      *
-     * @param ProductInterface $product Product.
      * @return CustomEntityInterface[][]|null
+     * @throws LocalizedException
      */
-    public function getCustomEntities(ProductInterface $product): ?array
+    public function getCustomEntities(Product $product): ?array
     {
         /** @var CustomEntityInterface[][] $entities */
-        $entityIds = [];
         $entities = [];
+        $entityIds = [];
 
         foreach ($this->helper->getCustomEntityProductAttributes() as $customEntityAttribute) {
             $customEntityAttributeCode = $customEntityAttribute->getAttributeCode();
