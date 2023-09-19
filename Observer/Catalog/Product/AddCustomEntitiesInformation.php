@@ -30,7 +30,7 @@ class AddCustomEntitiesInformation implements ObserverInterface
     public function __construct(
         CustomEntityProductLinkManagementInterface $customEntityProductLinkManagement,
         Config $catalogConfig,
-        CustomEntityCollectionFactory $customEntityCollectionFactory,
+        CustomEntityCollectionFactory $customEntityCollectionFactory
     ) {
         $this->customEntityProductLinkManagement = $customEntityProductLinkManagement;
         $this->catalogConfig = $catalogConfig;
