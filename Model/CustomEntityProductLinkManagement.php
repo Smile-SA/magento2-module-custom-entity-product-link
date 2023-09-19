@@ -51,8 +51,12 @@ class CustomEntityProductLinkManagement implements CustomEntityProductLinkManage
 
         foreach ($this->helper->getCustomEntityProductAttributes() as $customEntityAttribute) {
             $customEntityAttributeCode = $customEntityAttribute->getAttributeCode();
-            if ($product->getData($customEntityAttributeCode)) {
-                foreach (explode(',', $product->getData($customEntityAttributeCode)) as $entityId) {
+            $productCustomEntityIds = $product->getData($customEntityAttributeCode);
+            if ($productCustomEntityIds) {
+                if (is_string($productCustomEntityIds)) {
+                    $productCustomEntityIds = explode(',', $productCustomEntityIds);
+                }
+                foreach ($productCustomEntityIds ?? [] as $entityId) {
                     $entityIds[$entityId][] = $customEntityAttributeCode;
                 }
             }
