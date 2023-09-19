@@ -10,10 +10,8 @@ class Attribute
 {
     /**
      * Whether allowed for rule condition
-     *
-     * @return bool
      */
-    public function afterIsAllowedForRuleCondition(Subject $subject, bool $result)
+    public function afterIsAllowedForRuleCondition(Subject $subject, bool $result): bool
     {
         if ($subject->getFrontendInput() == 'smile_custom_entity') {
             $result = $subject->getIsVisible();
