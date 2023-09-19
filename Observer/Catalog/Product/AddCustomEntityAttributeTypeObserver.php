@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Observer\Catalog\Product;
 
+use Magento\Framework\DataObject;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Module\Manager;
@@ -36,7 +37,7 @@ class AddCustomEntityAttributeTypeObserver implements ObserverInterface
             return;
         }
 
-        /** @var \Magento\Framework\DataObject $response */
+        /** @var DataObject $response */
         $response = $observer->getEvent()->getResponse();
         $types = $response->getTypes();
 
