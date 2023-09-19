@@ -61,11 +61,16 @@ class AddCustomEntitiesInformation implements ObserverInterface
                     if (!$product->hasData($attributeCode)) {
                         continue;
                     }
-                    $productCustomEntityIds = explode(',', $product->getData($attributeCode));
-                    foreach ($productCustomEntityIds as $productCustomEntityId) {
+                    $productCustomEntityIds = $product->getData($attributeCode);
+                    if (is_string($productCustomEntityIds)) {
+                        $productCustomEntityIds = explode(',', $productCustomEntityIds);
+                    }
+                    foreach ($productCustomEntityIds ?? [] as $productCustomEntityId) {
                         $productCustomEntityList[$product->getId()][$attributeCode][] = $productCustomEntityId;
                     }
-                    $customEntityIds = array_merge($customEntityIds, $productCustomEntityIds);
+                    if (is_array($productCustomEntityIds)) {
+                        $customEntityIds = array_merge($customEntityIds, $productCustomEntityIds);
+                    }
                 }
             }
             $customEntityIds = array_unique($customEntityIds);
