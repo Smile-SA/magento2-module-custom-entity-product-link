@@ -13,8 +13,8 @@ class Attribute
      */
     public function afterIsAllowedForRuleCondition(Subject $subject, bool $result): bool
     {
-        if ($subject->getFrontendInput() == 'smile_custom_entity') {
-            $result = $subject->getIsVisible();
+        if ($subject->getFrontendInput() === 'smile_custom_entity') {
+            $result = (bool) $subject->getIsVisible();
         }
 
         return $result;
