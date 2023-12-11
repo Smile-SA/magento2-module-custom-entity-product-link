@@ -25,7 +25,7 @@ class CustomEntityAttributeSaveBeforeObserver implements ObserverInterface
         /** @var \Magento\Eav\Model\Entity\Attribute $attribute */
         $attribute = $observer->getEvent()->getData('attribute');
 
-        if ($attribute->getData('custom_entity_attribute_set_id') != null) {
+        if ($attribute->getFrontendInput() == 'smile_custom_entity') {
             $attribute->setBackendType('text');
             $attribute->setFrontendModel(CustomEntity::class);
             $attribute->setBackendModel(ArrayBackend::class);
