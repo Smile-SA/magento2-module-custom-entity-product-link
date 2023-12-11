@@ -17,6 +17,6 @@ class Attribute
             $result = $subject->getIsVisible();
         }
 
-        return $result;
+        return (bool) $result;
     }
 }
