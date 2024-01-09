@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.3] - 2024-01-09
+[1.4.3]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.4.2...1.4.3
+
+- Fix return type on the cart price rule creation BO page
+- Fix error on attribute creation
+
+## [1.4.2] - 2023-09-19
+[1.4.2]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.4.1...1.4.2
+
+- Fix explode php error
+
+## [1.4.1] - 2023-09-19
+[1.4.1]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.4.0...1.4.1
+
+- Fix __construct for php 7.4
+
+## [1.4.0] - 2023-09-19
+[1.4.0]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.3.9...1.4.0
+
+- From this release, product attribute linked to custom entities will not save their value in a custom table anymore.
+  They will use the standard table of Magento (catalog_product_entity_text).
+  This change makes possible to integrate these attributes in rule engine (promo, virtual category, optimizers),
+  and allows to have different value for different stores.
+
+## [1.3.9] - 2023-07-19
+[1.3.9]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.3.8...1.3.9
+
+- Add attribute id as catalog_product_custom_entity_link
+
 ## [1.3.8] - 2022-12-02
 [1.3.8]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.3.7...1.3.8
 
