@@ -50,7 +50,11 @@ class EavPlugin
 
             /** @var Attribute $attribute */
             $fieldConfig = [
+                'component'     => 'Magento_Ui/js/form/element/ui-select',
                 'formElement'   => 'multiselect',
+                'elementTmpl'   => 'ui/grid/filters/elements/ui-select',
+                'filterOptions' => true,
+                'multiple'      => true,
                 'options'       => $attribute->getSource()->getAllOptions(),
                 'disableLabel'  => true,
                 'required'      => false,

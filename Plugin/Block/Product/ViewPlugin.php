@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Plugin\Block\Product;
 
 use Magento\Catalog\Block\Product\View;
+use Magento\Catalog\Model\Product;
 use Smile\CustomEntity\Api\Data\CustomEntityInterface;
 
 /**
@@ -21,9 +22,15 @@ class ViewPlugin
      */
     public function afterGetIdentities(View $source, array $identities): ?array
     {
+        /** @var Product|null $product */
+        $product = $source->getProduct();
+        if (!$product) {
+            return $identities;
+        }
+
         // @todo Optimization: only custom entities if is visible on front
         // @phpstan-ignore-next-line
-        $customEntities = $source->getProduct()->getExtensionAttributes()->getCustomEntities();
+        $customEntities = $product->getExtensionAttributes()->getCustomEntities();
         if ($customEntities) {
             /** @var CustomEntityInterface $customEntity */
             foreach ($customEntities as $customEntity) {
