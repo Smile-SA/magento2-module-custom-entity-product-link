@@ -2,8 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.4] - 2024-02-14
+[1.4.4]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.4.3...1.4.4
+
+- Use ui-select input type for smile_custom_entity attributes
+
 ## [1.4.3] - 2024-01-09
 [1.4.3]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.4.2...1.4.3
+
+- Fix return type on the cart price rule creation BO page
+- Fix error on attribute creation
+
+## [1.4.3] - 2024-01-09
+[1.4.3]: https://github.com/Smile-SA/magento2-module-custom-entity-product-link/compare/1.4.2...1.4.3 
 
 - Fix return type on the cart price rule creation BO page
 - Fix error on attribute creation
