@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Smile\CustomEntityProductLink\Model\Entity\Attribute\Source;
 
 use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
+use Magento\Store\Model\StoreManagerInterface;
 use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as CustomEntityCollectionFactory;
 
 /**
@@ -13,29 +14,51 @@ use Smile\CustomEntity\Model\ResourceModel\CustomEntity\CollectionFactory as Cus
 class CustomEntity extends AbstractSource
 {
     private CustomEntityCollectionFactory $customEntityCollectionFactory;
+    private StoreManagerInterface $storeManager;
 
-    public function __construct(CustomEntityCollectionFactory $customEntityCollectionFactory)
-    {
+    /** @var array<string, list<array{value: string, label: ?string}>> */
+    private array $optionsCache = [];
+
+    public function __construct(
+        CustomEntityCollectionFactory $customEntityCollectionFactory,
+        StoreManagerInterface $storeManager
+    ) {
         $this->customEntityCollectionFactory = $customEntityCollectionFactory;
+        $this->storeManager = $storeManager;
     }
 
     /**
      * Get all options
+     *
+     * @return list<array{value: string, label: ?string}>
      */
     public function getAllOptions(): array
     {
-        $options = [];
-        $collection = $this->customEntityCollectionFactory->create()
-            ->addAttributeToSelect('name')
-            ->addAttributeToFilter('attribute_set_id', $this->getAttribute()->getCustomEntityAttributeSetId());
+        $attributeSetId = (int) $this->getAttribute()->getCustomEntityAttributeSetId();
+        $storeId = $this->getAttribute()->getStoreId();
+        if ($storeId === null) {
+            $storeId = $this->storeManager->getStore()->getId();
+        }
+        $storeId = (int) $storeId;
 
-        foreach ($collection->getItems() as $customEntity) {
-            $options[] =  [
-                'value' => $customEntity->getId(),
-                'label' => $customEntity->getName(),
-            ];
+        $cacheKey = sprintf('%d_%d', $attributeSetId, $storeId);
+        if (!isset($this->optionsCache[$cacheKey])) {
+            $options = [];
+            $collection = $this->customEntityCollectionFactory->create()
+                ->setStoreId($storeId)
+                ->addAttributeToSelect('name')
+                ->addAttributeToFilter('attribute_set_id', $attributeSetId);
+
+            foreach ($collection->getItems() as $customEntity) {
+                $options[] = [
+                    'value' => $customEntity->getId(),
+                    'label' => $customEntity->getName(),
+                ];
+            }
+
+            $this->optionsCache[$cacheKey] = $options;
         }
 
-        return $options;
+        return $this->optionsCache[$cacheKey];
     }
 }
