@@ -25,7 +25,10 @@
             "magento/magento-composer-installer": false,
             "php-http/discovery": true
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "audit": {
+            "abandoned": "report"
+        }
     },
     "require": {
         "php": "^7.4 || ^8.1",
