@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Smile\CustomEntityProductLink\Model\Entity\Attribute\Frontend;
 
-use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Eav\Model\Entity\Attribute\Frontend\AbstractFrontend;
 use Magento\Eav\Model\Entity\Attribute\Source\BooleanFactory;
 use Magento\Framework\App\CacheInterface;
@@ -21,9 +20,6 @@ use Smile\CustomEntityProductLink\Helper\Product as ProductHelper;
  */
 class CustomEntity extends AbstractFrontend
 {
-    /**
-     * @var array
-     */
     private array $renderers;
 
     private ProductHelper $productHelper;
@@ -63,7 +59,7 @@ class CustomEntity extends AbstractFrontend
      */
     public function getValue(DataObject $object): string
     {
-        /** @var ProductInterface $object */
+        /** @var \Magento\Catalog\Model\Product $object */
         $value = [];
         $customEntities = $this->productHelper->getCustomEntities($object, $this->getAttribute()->getAttributeCode());
         foreach ($customEntities as $entity) {

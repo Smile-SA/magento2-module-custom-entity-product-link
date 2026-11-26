@@ -16,6 +16,7 @@ class AbstractProduct
      */
     public function afterGetInputType(Subject $subject, string $result): string
     {
+        // @phpstan-ignore function.alreadyNarrowedType (Magento PHPDoc is wrong: eav config may return false)
         if (is_object($subject->getAttributeObject())) {
             if ($subject->getAttributeObject()->getFrontendInput() == 'smile_custom_entity') {
                 $result = 'multiselect';
@@ -30,6 +31,7 @@ class AbstractProduct
      */
     public function afterGetValueElementType(Subject $subject, string $result): string
     {
+        // @phpstan-ignore function.alreadyNarrowedType (Magento PHPDoc is wrong: eav config may return false)
         if (is_object($subject->getAttributeObject())) {
             if ($subject->getAttributeObject()->getFrontendInput() == 'smile_custom_entity') {
                 $result = 'multiselect';
