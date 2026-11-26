@@ -6,7 +6,6 @@ namespace Smile\CustomEntityProductLink\Plugin\Catalog\Ui\DataProvider\Product\F
 
 use Magento\Catalog\Api\Data\ProductAttributeInterface;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Eav as EavModifier;
-use Magento\Eav\Model\Attribute;
 use Magento\Framework\Stdlib\ArrayManager;
 
 /**
@@ -48,7 +47,7 @@ class EavPlugin
         if ($attribute->getFrontendInput() == "smile_custom_entity") {
             $configPath = ltrim($subject::META_CONFIG_PATH, ArrayManager::DEFAULT_PATH_DELIMITER);
 
-            /** @var Attribute $attribute */
+            /** @var \Magento\Catalog\Model\ResourceModel\Eav\Attribute $attribute */
             $fieldConfig = [
                 'component'     => 'Magento_Ui/js/form/element/ui-select',
                 'formElement'   => 'multiselect',

@@ -16,9 +16,6 @@ use Smile\CustomEntity\Api\Data\CustomEntityInterface;
  */
 class Product extends AbstractHelper
 {
-    /**
-     * @var array
-     */
     private array $filterableAttributeCodes = [];
 
     private FilterableAttributeList $filterableAttributeList;
